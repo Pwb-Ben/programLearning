@@ -4,8 +4,7 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class myPipeLine implements Pipeline {
@@ -26,10 +25,10 @@ public class myPipeLine implements Pipeline {
         List<String> title = resultItems.get("title");
         List<String> time = resultItems.get("time");
         List<String> address = resultItems.get("address");
-        String context = null;
 
         try {
             fileWriter = new FileWriter(fileName,true);
+            String context;
             for (int i = 0; i<title.size(); i++){
                 if (isCount){
                     context = count+"  "+time.get(i)+"  "+title.get(i)+"  "+address.get(i)+"\r\n";

@@ -14,7 +14,7 @@ public class WebMagicCrawler implements PageProcessor {
 
     private List<String> requests;
 
-    public WebMagicCrawler(List<String> requests){
+    private WebMagicCrawler(List<String> requests){
         this.requests = requests;
     }
 
@@ -26,7 +26,7 @@ public class WebMagicCrawler implements PageProcessor {
         if (requests!=null){
             page.addTargetRequests(requests);
 
-            System.out.println("网站页面包含post-title标签："+page.getHtml().$("h2.post-titl").xpath("a/text()").all().toString());
+            System.out.println("网站页面包含post-title标签："+page.getHtml().$("h2.post-title").xpath("a/text()").all().toString());
             System.out.println("网站页面包含time标签："+page.getHtml().xpath("//* time/text()").all().toString());
             System.out.println("网站页面包含href标签："+page.getHtml().$("h2.post-title").links().all().toString());
 
@@ -78,8 +78,8 @@ public class WebMagicCrawler implements PageProcessor {
     }
 
     public static void main(String[] args) {
-        int startIndex = 0, endIndex = 0;
         List<String> requests = new LinkedList<>();
+//        int startIndex = 0, endIndex = 0;
 //        StringBuffer stringBuffer = readFileByBytes("C:\\Users\\pwbco\\Desktop\\address.txt");
 //        while (endIndex < stringBuffer.length()){
 //            startIndex = stringBuffer.indexOf("http://",endIndex);

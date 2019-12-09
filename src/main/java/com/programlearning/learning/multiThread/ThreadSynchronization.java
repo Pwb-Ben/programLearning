@@ -81,13 +81,14 @@ public class ThreadSynchronization {
              }
          }
     }
-
     public void runReentrantLockExample(){
         ReentrantLockExample reentrantLockExample = new ReentrantLockExample();
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(() -> reentrantLockExample.func());
         executorService.execute(() -> reentrantLockExample.func());
     }
+
+    
 
     public static void main(String[] args) {
         ThreadSynchronization threadSynchronization = new ThreadSynchronization();

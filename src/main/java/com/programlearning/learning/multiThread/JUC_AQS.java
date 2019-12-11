@@ -2,7 +2,7 @@ package com.programlearning.learning.multiThread;
 
 import java.util.concurrent.*;
 
-public class AQS {
+public class JUC_AQS {
 
     public static final int totalThread = 10;
 

@@ -28,7 +28,6 @@ public class ProductInvocationHandler implements InvocationHandler {
         Object result = method.invoke(target, args);
         // 在目标对象的方法执行之后简单的打印一下
         System.out.println("添加完成");
-
         return result;
     }
 
@@ -36,8 +35,10 @@ public class ProductInvocationHandler implements InvocationHandler {
      * 获取目标对象的代理对象
      * @return 代理对象
      */
-    public Object getProxy() {
-        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-                target.getClass().getInterfaces(), this);
+    @SuppressWarnings("unchecked")
+    public <T> T getProxy(Class interfaces) {
+        return (T)Proxy.newProxyInstance(interfaces.getClassLoader(),
+                new Class[]{interfaces},
+                this);
     }
 }

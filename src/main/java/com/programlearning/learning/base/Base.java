@@ -13,9 +13,10 @@ public class Base {
      */
     static class People {
         private String name;
-//        private static People people = new People();
+        private static People people = new People();
         private static int n = 10;
         private int age = setAge();
+        protected int sex;
 
         {
             System.out.println("初始化块");
@@ -75,5 +76,13 @@ public class Base {
     public static void main(String[] args) {
 //        Student p = new Student();
         Student p1 = new Student("zhangsan",40);
+
+        System.out.println(Integer.numberOfLeadingZeros(123));
+        String s = "123";
+        char[] ch = new char[10];
+        s.getChars(0, s.length(), ch, 0);
+        for(int i = 0; i<s.length(); i++){
+            System.out.println(ch[i]);
+        }
     }
 }

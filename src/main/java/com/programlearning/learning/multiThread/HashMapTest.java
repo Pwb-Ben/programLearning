@@ -6,6 +6,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HashMapTest {
 
+    static class HashMapThread extends Thread {
+        private static AtomicInteger ai = new AtomicInteger();
+        private static Map<Integer, Integer> map = new HashMap<>();
+
+        @Override
+        public void run() {
+            while (ai.get() < 1000000) {
+                map.put(ai.get(), ai.get());
+                ai.incrementAndGet();
+            }
+        }
+    }
+
     public static void main(String[] args) {
         HashMapThread thread0 = new HashMapThread();
         HashMapThread thread1 = new HashMapThread();
@@ -17,18 +30,5 @@ public class HashMapTest {
         thread2.start();
         thread3.start();
         thread4.start();
-    }
-}
-
-class HashMapThread extends Thread {
-    private static AtomicInteger ai = new AtomicInteger();
-    private static Map<Integer, Integer> map = new HashMap<>();
-
-    @Override
-    public void run() {
-        while (ai.get() < 1000000) {
-            map.put(ai.get(), ai.get());
-            ai.incrementAndGet();
-        }
     }
 }

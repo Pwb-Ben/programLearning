@@ -176,7 +176,9 @@ public class ExecutorsExample {
         ArrayList<Callable> callableTasks = new ArrayList<>();
 
         for(int i = 0; i<10; i++) {
-            runnableTasks.add(() -> System.out.println("runnableTask is running..."));
+            runnableTasks.add(() -> {
+                System.out.println("runnableTask is running...");
+            });
             callableTasks.add(new Callable<Object>() {
                 @Override
                 public Object call() throws Exception {
@@ -186,7 +188,9 @@ public class ExecutorsExample {
         }
 
         // void execute(Runnable command) 不关心返回结果
-        for(Runnable r:runnableTasks) executorService.execute(r);
+        for(Runnable r:runnableTasks) {
+            executorService.execute(r);
+        }
 
         // Future<T> submit(Callable<T> task) 有返回结果
         for(Callable c:callableTasks) {
@@ -252,7 +256,6 @@ public class ExecutorsExample {
                 }
             }
         });
-
         try {
             Object result = future.get(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {

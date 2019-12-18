@@ -7,7 +7,7 @@ import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.io.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebMagicCrawler implements PageProcessor {
@@ -18,6 +18,7 @@ public class WebMagicCrawler implements PageProcessor {
         this.requests = requests;
     }
 
+    @Override
     public void process(Page page) {
         // 将当前页 面里的所有链接都添加到目标页面中
         //System.out.println("网站页面包含链接："+page.getHtml().links().all().toString());
@@ -27,7 +28,7 @@ public class WebMagicCrawler implements PageProcessor {
             page.addTargetRequests(requests);
 
             System.out.println("网站页面包含post-title标签："+page.getHtml().$("h2.post-title").xpath("a/text()").all().toString());
-            System.out.println("网站页面包含time标签："+page.getHtml().xpath("//* time/text()").all().toString());
+            System.out.println("网站页面包含time标签："+page.getHtml().xpath("time/text()").all().toString());
             System.out.println("网站页面包含href标签："+page.getHtml().$("h2.post-title").links().all().toString());
 
             List<String> title = page.getHtml().$("h2.post-title").xpath("a/text()").all();
@@ -43,6 +44,7 @@ public class WebMagicCrawler implements PageProcessor {
         }
     }
 
+    @Override
     public Site getSite() {
         return Site.me().setSleepTime(100).setRetryTimes(3);
     }
@@ -64,7 +66,9 @@ public class WebMagicCrawler implements PageProcessor {
             while (true) {
                 try {
                     byteRead = in.read(tempBytes);
-                    if (byteRead==-1) break;
+                    if (byteRead==-1) {
+                        break;
+                    }
                     String str = new String(tempBytes, 0, byteRead);
                     sb.append(str);
                 } catch (IOException e) {
@@ -78,7 +82,7 @@ public class WebMagicCrawler implements PageProcessor {
     }
 
     public static void main(String[] args) {
-        List<String> requests = new LinkedList<>();
+        List<String> requests = new ArrayList<>(5);
 //        int startIndex = 0, endIndex = 0;
 //        StringBuffer stringBuffer = readFileByBytes("C:\\Users\\pwbco\\Desktop\\address.txt");
 //        while (endIndex < stringBuffer.length()){
@@ -91,7 +95,7 @@ public class WebMagicCrawler implements PageProcessor {
 //        }
 
         String address = "http://www.woshipm.com/category/ucd/page/";
-        for (int i = 2; i<=267; i++){
+        for (int i = 2; i<=5; i++){
             requests.add(address+i);
         }
 

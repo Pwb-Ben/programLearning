@@ -1,4 +1,4 @@
-package com.programlearning.learning.NIO;
+package com.programlearning.learning.IO;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -8,6 +8,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 /**
  * jdk原生NIO
  *
- * NIO 模型中通常会有两个线程，每个线程绑定一个轮询器 selector ，在我们这个例子中serverSelector负责轮询是否有新的连接，clientSelector负责轮询连接是否有数据可读
+ * IO 模型中通常会有两个线程，每个线程绑定一个轮询器 selector ，在我们这个例子中serverSelector负责轮询是否有新的连接，clientSelector负责轮询连接是否有数据可读
  * 服务端监测到新的连接之后，不再创建一个新的线程，而是直接将新连接绑定到clientSelector上，这样就不用 IO 模型中 1w 个 while 循环在死等，参见(1)
  * clientSelector被一个 while 死循环包裹着，如果在某一时刻有多条连接有数据可读，那么通过 clientSelector.select(1)方法可以轮询出来，进而批量处理，参见(2)
  * 数据的读写面向 Buffer，参见(3)
@@ -37,7 +38,7 @@ public class SocketNIO {
 
                 while (true) {
                     // 监测是否有新的连接，这里的1指的是阻塞的时间为 1ms
-                    if (serverSelector.select(1) > 0) {
+                    if (serverSelector.select(1000) > 0) {
                         Set<SelectionKey> set = serverSelector.selectedKeys();
                         Iterator<SelectionKey> keyIterator = set.iterator();
 
@@ -55,6 +56,8 @@ public class SocketNIO {
                                 }
                             }
                         }
+                    }else{
+                        System.out.println("do select" + (new Date()));
                     }
                 }
             } catch (IOException ignored) {

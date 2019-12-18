@@ -10,6 +10,7 @@ public class Base {
      * 子类的静态代码块
      * 然后执行主程序
      * 如果在父类或者子类有调用构造函数的new对象先执行
+     *
      */
     static class People {
         private String name;
@@ -24,6 +25,7 @@ public class Base {
         }
 
         static {
+            n=1;
             System.out.println("静态块");
             System.out.println("n = " + n);
         }

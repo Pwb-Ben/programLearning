@@ -1,4 +1,4 @@
-package com.programlearning.learning.NIO;
+package com.programlearning.learning.IO;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +24,9 @@ public class SocketIO {
                             InputStream inputStream = socket.getInputStream();
                             // (3) 按字节流方式读取数据
                             while (true) {
-                                if (!((len = inputStream.read(data)) != -1)) break;
+                                if (((len = inputStream.read(data)) == -1)) {
+                                    break;
+                                }
                                 System.out.println(new String(data, 0, len));
                             }
                         } catch (IOException e) {

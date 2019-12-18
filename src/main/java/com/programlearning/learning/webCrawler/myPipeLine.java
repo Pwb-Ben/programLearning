@@ -20,24 +20,40 @@ public class myPipeLine implements Pipeline {
         this.isCount = isCount;
     }
 
+    @Override
     public void process(ResultItems resultItems, Task task) {
         FileWriter fileWriter = null;
+        StringBuilder context;
+
         List<String> title = resultItems.get("title");
         List<String> time = resultItems.get("time");
         List<String> address = resultItems.get("address");
 
         try {
             fileWriter = new FileWriter(fileName,true);
-            String context;
+            context = new StringBuilder();
             for (int i = 0; i<title.size(); i++){
                 if (isCount){
-                    context = count+"  "+time.get(i)+"  "+title.get(i)+"  "+address.get(i)+"\r\n";
+                    context.append(count)
+                            .append("    ")
+                            .append(time.get(i))
+                            .append("    ")
+                            .append(title.get(i))
+                            .append("    ")
+                            .append(address.get(i))
+                            .append("\r\n");
                     count++;
                 }else{
-                    context = time.get(i)+"  "+title.get(i)+"  "+address.get(i)+"\r\n";
+                    context.append(time.get(i))
+                            .append("    ")
+                            .append(title.get(i))
+                            .append("    ")
+                            .append(address.get(i))
+                            .append("\r\n");
                 }
-                fileWriter.write(context);
             }
+            fileWriter.write(context.toString());
+            context = null; //help gc
         } catch (IOException e) {
             e.printStackTrace();
         }finally {

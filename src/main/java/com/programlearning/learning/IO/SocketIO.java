@@ -12,7 +12,7 @@ public class SocketIO {
     public static void main(String[] args) {
 
         try {
-            ServerSocket serverSocket = new ServerSocket(8080);
+            ServerSocket serverSocket = new ServerSocket(8000);
             new Thread(()->{
                 try {
                     Socket socket = serverSocket.accept();
@@ -44,7 +44,7 @@ public class SocketIO {
 
         new Thread(()->{
             try {
-                Socket socket = new Socket("127.0.0.1",8080);
+                Socket socket = new Socket("127.0.0.1",8000);
 
                 while(true){
                     OutputStream outputStream = socket.getOutputStream();

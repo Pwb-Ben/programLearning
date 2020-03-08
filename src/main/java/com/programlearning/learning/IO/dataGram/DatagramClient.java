@@ -9,9 +9,8 @@ import java.util.Scanner;
 public class DatagramClient {
 
     public static void main(String[] args) {
-        DatagramChannel dc = null;
         try {
-            dc = DatagramChannel.open();
+            DatagramChannel dc = DatagramChannel.open();
 
             dc.configureBlocking(false);
 

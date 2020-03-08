@@ -13,11 +13,8 @@ public class DatagramServer {
     public static void main(String[] args) {
         try {
             DatagramChannel dc = DatagramChannel.open();
-
-            dc.bind(new InetSocketAddress(12306));
-
+            dc.bind(new InetSocketAddress(3000));
             Selector selector = Selector.open();
-
             dc.register(selector, SelectionKey.OP_READ);
 
             while (selector.select() > 0){

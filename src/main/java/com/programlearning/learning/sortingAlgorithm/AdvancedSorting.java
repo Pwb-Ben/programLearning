@@ -1,5 +1,8 @@
 package com.programlearning.learning.sortingAlgorithm;
 
+/**
+ * @author Administrator
+ */
 public class AdvancedSorting {
 
     /**
@@ -27,13 +30,14 @@ public class AdvancedSorting {
      *
      * 普通快速排序因为以第一个元素当作枢纽元，可能在排序中放到数组后面，就已经破坏其稳定性
      */
-    public static void quickSort(int[] a,int low,int high){
+    private static void quickSort(int[] a, int low, int high){
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
             return;
         }
         int start=low,end=high,pivot;
         if(start < end) {
-            pivot=a[start];    //设置枢轴
+            //设置枢轴
+            pivot=a[start];
             while(start < end) {
                 while(start<end && a[end]>=pivot) {
                     --end;
@@ -89,7 +93,7 @@ public class AdvancedSorting {
      * 稳定性：归并排序是稳定的排序算法，temp[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
      * 这行代码可以保证当左右两部分的值相等的时候，先复制左边的值，这样可以保证值相等的时候两个元素的相对位置不变。
      */
-    public static void mergeSort(int[] a,int low,int high){
+    private static void mergeSort(int[] a, int low, int high){
         if(low == high) {
             return;
         }
@@ -99,14 +103,14 @@ public class AdvancedSorting {
         merge(a, low, mid, high);
     }
 
-    public static void merge(int[] arr, int low, int mid, int high) {
+    private static void merge(int[] arr, int low, int mid, int high) {
         int[] temp = new int[high - low + 1];
         int i = 0;
         int p1 = low;
         int p2 = mid + 1;
         // 比较左右两部分的元素，哪个小，把那个元素填入temp中
         while(p1 <= mid && p2 <= high) {
-            temp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
+            temp[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
         }
         // 上面的循环退出后，把剩余的元素依次填入到temp中
         // 以下两个while只有一个会执行

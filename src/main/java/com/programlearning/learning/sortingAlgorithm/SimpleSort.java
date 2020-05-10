@@ -2,8 +2,9 @@ package com.programlearning.learning.sortingAlgorithm;
 
 public class SimpleSort {
 
-    /*
+    /**
      * 冒泡排序
+     * 稳定排序算法
      */
     static void bubbleSort(int[] a,int low,int high){
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
@@ -23,8 +24,12 @@ public class SimpleSort {
         }
     }
 
-    /*
+    /**
      * 插入排序
+     * 稳定排序算法
+     * @param a
+     * @param low
+     * @param high
      */
     static void insertionSort(int[] a, int low, int high){
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
@@ -39,8 +44,9 @@ public class SimpleSort {
         }
     }
 
-    /*
+    /**
      * 选择排序
+     * 不是稳定排序算法
      */
     static void selectionSort(int[] a, int low, int high){
         if (null == a || low < 0 || a.length == 0 || a.length < high) {

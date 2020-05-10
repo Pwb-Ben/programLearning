@@ -103,7 +103,13 @@ public class TopKPromblem {
         }
     }
 
-    // 快排中的每次排序实现（挖坑填数法），返回的是交换后start位置（快排一次后的中轴点，中轴点左边全是小于它的，右边都是大于它的）
+    /**
+     * 快排中的每次排序实现（挖坑填数法），返回的是交换后start位置（快排一次后的中轴点，中轴点左边全是小于它的，右边都是大于它的）
+     * @param a
+     * @param start
+     * @param end
+     * @return
+     */
     static int partition(int[] a, int start, int end){
         int pivot = a[start];
         while(start < end){

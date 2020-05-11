@@ -7,6 +7,17 @@ import java.util.Queue;
 
 /**
  * JDK中有快速排序优化算法 DualPivotQuicksort 类
+ *
+ * Colletions.sort(list) 与 Arrays.sort(T[])
+ * Colletions.sort()实际会将list转为数组，然后调用Arrays.sort()，排完了再转回List。
+ * 而Arrays.sort()，对原始类型(int[],double[],char[],byte[])，JDK6里用的是快速排序，对于对象类型(Object[])，JDK6则使用归并排序。为什么要用不同的算法呢？
+ *
+ * JDK7的进步
+ * 到了JDK7，快速排序升级为双基准快排(双基准快排 vs 三路快排)；归并排序升级为归并排序的改进版TimSort，一个JDK的自我进化。
+ *
+ * JDK8的进步
+ * 再到了JDK8， 对大集合增加了Arrays.parallelSort()函数，使用fork-Join框架，充分利用多核，对大的集合进行切分然后再归并排序，
+ * 而在小的连续片段里，依然使用TimSort与DualPivotQuickSort。
  */
 public class TopKPromblem {
 

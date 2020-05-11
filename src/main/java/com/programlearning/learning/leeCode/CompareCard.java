@@ -1,7 +1,6 @@
 package com.programlearning.learning.leeCode;
 
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 /**
@@ -24,12 +23,10 @@ import java.util.Scanner;
  */
 public class CompareCard {
 
-    static LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+    static String[] strings = {"3","4","5","6","7","8","9","10","J","Q","K","A","2"};
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] strings = {"3","4","5","6","7","8","9","10","J","Q","K","A","2"};
-        linkedHashSet.addAll(Arrays.asList(strings));
         while(sc.hasNext()){
             String s = sc.nextLine();
             String[] strings1 = s.split("-");
@@ -38,17 +35,30 @@ public class CompareCard {
             card2 = strings1[1].split("\\s+");
             //牌面类型相同
             if (card1.length == card2.length) {
-                System.out.println(Arrays.binarySearch(, )card1[0]>card2[0]?card1:card2);
+                card1 = findIndex(card1[0]) > findIndex(card2[0])?card1:card2;
+                if (card1.length == 1){
+                    System.out.println(card1[0]);
+                }
+                else{
+                    for (int i = 0; i < card1.length - 1; i++) {
+                        System.out.print(card1[i]+" ");
+                    }
+                    System.out.print(card1[card1.length - 1]);
+                }
             }
             //牌面类型不同，只有炸弹能和其他类型比较
             else {
                 //王炸最大
-                if("joker JOKER".equals(card1) || "JOKER joker".equals(card1) || "joker JOKER".equals(card2) || "JOKER joker".equals(card2)){
+                if("joker JOKER".equals(strings1[0]) || "JOKER joker".equals(strings1[1]) || "joker JOKER".equals(strings1[1]) || "JOKER joker".equals(strings1[0])){
                     System.out.println("joker JOKER");
                 }
                 //有一手牌是炸弹
                 else if (card1.length == 4 || card2.length == 4){
-                    System.out.println(card1.length == 4?card1:card2);
+                    card1 = card1.length == 4?card1:card2;
+                    for (int i = 0; i < card1.length - 1; i++) {
+                        System.out.print(card1[i]+" ");
+                    }
+                    System.out.print(card1[card1.length - 1]);
                 }
                 //其他情况是无效比较
                 else {
@@ -56,5 +66,14 @@ public class CompareCard {
                 }
             }
         }
+    }
+
+    static int findIndex(String s){
+        for(int i = 0; i < strings.length; i++){
+            if (strings[i].equals(s)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -1,6 +1,5 @@
 package com.programlearning.learning.leeCode;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**

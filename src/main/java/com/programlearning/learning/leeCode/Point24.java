@@ -126,7 +126,7 @@ public class Point24 {
     }
 
     /**
-     * 递归调用函数交换数组中的数
+     * 递归调用函数交换数组中的数,得到全排列
      */
     static void solution(double[] arr, int k) {
         int n = arr.length;

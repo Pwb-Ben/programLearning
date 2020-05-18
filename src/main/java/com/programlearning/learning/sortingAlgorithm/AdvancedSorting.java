@@ -128,7 +128,7 @@ public class AdvancedSorting {
 
     public static void main(String[] args) {
         int[] a={20,40,32,67,33,1,40,20,89,300,400,15,15,2,400,20,89,1};
-        AdvancedSorting.quickSort(a,13,a.length-1);
+        AdvancedSorting.shellSort(a,2,6);
         for(int i:a){
             System.out.print(i+" ");
         }

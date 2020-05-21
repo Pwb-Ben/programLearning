@@ -94,7 +94,7 @@ public class AdvancedSorting {
      * 这行代码可以保证当左右两部分的值相等的时候，先复制左边的值，这样可以保证值相等的时候两个元素的相对位置不变。
      */
     private static void mergeSort(int[] a, int low, int high){
-        if(low == high) {
+        if(a == null || low >= high) {
             return;
         }
         int mid = low + ((high - low) >> 1);

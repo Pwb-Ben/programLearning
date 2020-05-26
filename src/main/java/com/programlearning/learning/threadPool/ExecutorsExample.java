@@ -78,7 +78,7 @@ public class ExecutorsExample {
     private ThreadFactory threadFactory;
 
     // 无参构造函数，默认配置，控制任务队列大小，防止OOM
-    ExecutorsExample(){
+    public ExecutorsExample(){
         this.poolSize = Runtime.getRuntime().availableProcessors() * 2;
         this.maxPoolSize = poolSize;
         this.keepAliveTime = 0;
@@ -152,7 +152,7 @@ public class ExecutorsExample {
      * 使用ThreadPoolExecutor构造方法
      * @return
      */
-    private ExecutorService getExecutorService(){
+    public ExecutorService getExecutorService(){
         if (executorService == null) {
             synchronized (ExecutorsExample.class) {
                 if (executorService == null) {

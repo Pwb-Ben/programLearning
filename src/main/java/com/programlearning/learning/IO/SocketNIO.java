@@ -1,5 +1,7 @@
 package com.programlearning.learning.IO;
 
+import com.programlearning.learning.threadPool.ExecutorsExample;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -11,6 +13,10 @@ import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 /**
@@ -28,7 +34,10 @@ public class SocketNIO {
         Selector serverSelector = Selector.open();
         Selector clientSelector = Selector.open();
 
-        new Thread(() -> {
+        ExecutorsExample executorsExample = new ExecutorsExample();
+        ExecutorService executorService = executorsExample.getExecutorService();
+
+        executorService.execute(() -> {
             try {
                 // 对应IO编程中服务端启动
                 ServerSocketChannel listenerChannel = ServerSocketChannel.open();
@@ -38,7 +47,7 @@ public class SocketNIO {
 
                 while (true) {
                     // 监测是否有新的连接，这里的1指的是阻塞的时间为 1ms
-                    if (serverSelector.select(1000) > 0) {
+                    if (serverSelector.select(1) > 0) {
                         Set<SelectionKey> set = serverSelector.selectedKeys();
                         Iterator<SelectionKey> keyIterator = set.iterator();
 
@@ -62,9 +71,9 @@ public class SocketNIO {
                 }
             } catch (IOException ignored) {
             }
-        }).start();
+        });
 
-        new Thread(() -> {
+        executorService.execute(() -> {
             try {
                 while (true) {
                     // (2) 批量轮询是否有哪些连接有数据可读，这里的1指的是阻塞的时间为 1ms
@@ -94,6 +103,6 @@ public class SocketNIO {
                 }
             } catch (IOException ignored) {
             }
-        }).start();
+        });
     }
 }

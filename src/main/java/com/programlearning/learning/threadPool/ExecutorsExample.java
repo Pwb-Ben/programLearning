@@ -79,7 +79,7 @@ public class ExecutorsExample {
 
     // 无参构造函数，默认配置，控制任务队列大小，防止OOM
     public ExecutorsExample(){
-        this.poolSize = Runtime.getRuntime().availableProcessors() * 2;
+        this.poolSize = Runtime.getRuntime().availableProcessors() << 1;
         this.maxPoolSize = poolSize;
         this.keepAliveTime = 0;
         this.unit = TimeUnit.SECONDS;

@@ -29,17 +29,29 @@ public class ExecutorsExample {
 
     private CountDownLatch countDownLatch;
 
-    // 线程池长期维持的线程数，即使线程处于Idle状态，也不会回收。
+    /**
+     * 线程池长期维持的线程数，即使线程处于Idle状态，也不会回收。
+     */
     private int poolSize;
 
-    // 线程数的上限
-    int maxPoolSize;
+    public int getPoolSize(){
+        return this.poolSize;
+    }
 
-    // 超过corePoolSize的线程的idle时长，超过这个时间，多余的线程会被回收。
-    long keepAliveTime;
+    /**
+     * 线程数的上限
+     */
+    private int maxPoolSize;
 
-    // 时间单位
-    TimeUnit unit;
+    /**
+     * 超过corePoolSize的线程的idle时长，超过这个时间，多余的线程会被回收。
+     */
+    private long keepAliveTime;
+
+    /**
+     * 时间单位
+     */
+    private TimeUnit unit;
 
     /**
      * 任务的排队队列
@@ -74,12 +86,16 @@ public class ExecutorsExample {
      */
     private RejectedExecutionHandler policy;
 
-    // 新线程的产生方式
+    /**
+     * 新线程的产生方式
+     */
     private ThreadFactory threadFactory;
 
-    // 无参构造函数，默认配置，控制任务队列大小，防止OOM
+    /**
+     * 无参构造函数，默认配置，控制任务队列大小，防止OOM
+     */
     public ExecutorsExample(){
-        this.poolSize = Runtime.getRuntime().availableProcessors() << 1;
+        this.poolSize = Runtime.getRuntime().availableProcessors() * 2;
         this.maxPoolSize = poolSize;
         this.keepAliveTime = 0;
         this.unit = TimeUnit.SECONDS;
@@ -88,7 +104,15 @@ public class ExecutorsExample {
         this.threadFactory = Executors.defaultThreadFactory();
     }
 
-    // 自定义配置初始化线程池
+    /**
+     * 自定义配置初始化线程池
+     * @param poolSize
+     * @param maxPoolSize
+     * @param keepAliveTime
+     * @param unit
+     * @param queue
+     * @param policy
+     */
     ExecutorsExample(int poolSize, int maxPoolSize, long keepAliveTime, TimeUnit unit, BlockingDeque queue, RejectedExecutionHandler policy){
         this.poolSize = poolSize;
         this.maxPoolSize = maxPoolSize;
@@ -99,7 +123,16 @@ public class ExecutorsExample {
         this.threadFactory = Executors.defaultThreadFactory();
     }
 
-    // 自定义配置初始化线程池
+    /**
+     * 自定义配置初始化线程池
+     * @param poolSize
+     * @param maxPoolSize
+     * @param keepAliveTime
+     * @param unit
+     * @param queue
+     * @param policy
+     * @param threadFactory
+     */
     ExecutorsExample(int poolSize, int maxPoolSize, long keepAliveTime, TimeUnit unit, BlockingDeque queue, RejectedExecutionHandler policy, ThreadFactory threadFactory){
         this.poolSize = poolSize;
         this.maxPoolSize = maxPoolSize;

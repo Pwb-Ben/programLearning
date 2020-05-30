@@ -10,6 +10,8 @@ import java.util.stream.Stream;
 
 public class FileNIO {
 
+    private static final int FINAL_SIZE = 100 * 1024 * 1024;
+
     public static void main(String[] args) throws Exception{
         // Write bytes to a file:
         Path path = Paths.get("C:\\Users\\Administrator\\Desktop\\test.txt");
@@ -31,10 +33,11 @@ public class FileNIO {
 
         // https://my.oschina.net/feichexia/blog/212318?nocache=1534897697905
         // https://blog.csdn.net/bird_tp/article/details/102504833
+        // 复制文件
         long s1 = System.currentTimeMillis();
 
-        FileChannel in = new FileInputStream("D:\\迅雷下载\\终结者2019.mkv").getChannel();
-        FileChannel out = new FileOutputStream("D:\\迅雷下载\\终结者2019_1.mkv").getChannel();
+        FileChannel in = new FileInputStream("D:\\迅雷\\迅雷下载\\HD-SSNI-786\\HD-SSNI-786.mp4").getChannel();
+        FileChannel out = new FileOutputStream("D:\\迅雷\\迅雷下载\\HD-SSNI-786\\HD-SSNI-786_1.mp4").getChannel();
         long inSize = in.size();
         long start = 0;
         while (start != inSize){

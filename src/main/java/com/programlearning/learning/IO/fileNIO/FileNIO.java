@@ -41,6 +41,7 @@ public class FileNIO {
         long inSize = in.size();
         long start = 0;
         while (start != inSize){
+            // transferTo使用的是零拷贝（https://www.jianshu.com/p/275602182f39）
             long len = in.transferTo(start, inSize-start, out);
             start += len;
         }

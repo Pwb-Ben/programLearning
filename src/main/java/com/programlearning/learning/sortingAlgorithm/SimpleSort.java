@@ -37,14 +37,27 @@ public class SimpleSort {
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
             return;
         }
-        for (int i = low; i < high; i++) {
+        for (int i = low; i <= high; i++) {
             //选择第i+1个数插入到前i个数中
             int j, ai = a[i + 1];
             //如果比第i+1个数大则后退一位
-            for(j = i; j >= low && ai < a[j]; j--) {
-                a[j + 1] = a[j];
+            for(j = i; j > low && a[j-1] > ai; j--) {
+                a[j] = a[j-1];
             }
-            a[j + 1] = ai;
+            a[j] = ai;
+        }
+    }
+
+    static void insertionSort(int[] a){
+        if (a == null || a.length == 0){
+            return;
+        }
+        for (int i = 1; i < a.length; i++){
+            int j, ai = a[i];
+            for (j = i; j > 0 && a[j-1] > ai; j--){
+                a[j] = a[j-1];
+            }
+            a[j] = ai;
         }
     }
 

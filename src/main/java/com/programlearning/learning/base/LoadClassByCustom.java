@@ -11,7 +11,7 @@ import java.nio.file.Paths;
  */
 public class LoadClassByCustom extends ClassLoader{
 
-    private Class findClass(String name, String path){
+    protected Class findClass(String name, String path){
         byte[] cLassBytes;
         try {
             cLassBytes = Files.readAllBytes(Paths.get(path));

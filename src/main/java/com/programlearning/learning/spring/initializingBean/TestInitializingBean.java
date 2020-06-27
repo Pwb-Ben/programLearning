@@ -1,8 +1,8 @@
 package com.programlearning.learning.spring.initializingBean;
 
 import com.programlearning.learning.spring.applicationListener.diyApplicationEvent.TestCreateEventService;
-import com.programlearning.learning.spring.applicationRunner.TestApplicationRunner;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +12,15 @@ import javax.annotation.PostConstruct;
  * InitializingBean 是 Spring 提供的一个接口，只包含一个方法 afterPropertiesSet()。
  * 凡是实现了该接口的类，当其对应的 Bean 交由 Spring 管理后，当其必要的属性全部设置完成后，
  * Spring 会调用该 Bean 的 afterPropertiesSet()。在Bean在实例化的过程中执执行顺序为：
- * Constructor > @Autowired > @PostConstruct > InitializingBean > init-method
+ * Constructor > @Autowired > @PostConstruct/init-method > InitializingBean
+ * BeanPostProcessor的执行时机:
+ * Constructor > BeanPostProcessor before > @PostConstruct > InitializingBean > BeanPostProcessor after
  *
  * 更多详见：http://www.likecs.com/show-63032.html
  * springboot容器启动详解：https://www.cnblogs.com/dennyzhangdd/p/8028950.html
  */
 @Component
-public class TestInitializingBean implements InitializingBean {
+public class TestInitializingBean implements InitializingBean, SmartInitializingSingleton {
 
     @Autowired
     TestCreateEventService testCreateEventService;
@@ -57,5 +59,15 @@ public class TestInitializingBean implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("TestInitializingBean的afterPropertiesSet方法被调用");
+    }
+
+    /**
+     * 在 BeanFactory 引导期间的单实例bean的初始化阶段结束时触发的回调接口
+     * 它是 InitializingBean 的替代方法，后者在bean的本地构造阶段结束时立即触发
+     * 它的执行时机是：所有单实例Bean都创建完毕
+     */
+    @Override
+    public void afterSingletonsInstantiated() {
+        System.out.println("所有单实例Bean都创建完毕");
     }
 }

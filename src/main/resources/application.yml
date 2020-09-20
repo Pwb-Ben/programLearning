@@ -1,2 +1,11 @@
 server:
   port: 8000
+
+file:
+  html: classpath:/h5/
+  windows:
+    path: D:\Work\IdeaProjects\ghs\src\main\resources\h5\
+  linux:
+    path:
+  mac:
+    path:

@@ -21,7 +21,6 @@ public class ControllerPipeline implements Pipeline {
         this.pageNode = resultItems.get("pageNode");
         if (Objects.nonNull(pageNode)){
             this.pageNode.getVideoNodeList().stream().parallel().forEach(node -> {
-                System.out.println(node.getImage());
                 node.setImage("data:image/jpg;base64," + Base64.encode(HttpUtil.downloadBytes(node.getImage())));
             });
         }

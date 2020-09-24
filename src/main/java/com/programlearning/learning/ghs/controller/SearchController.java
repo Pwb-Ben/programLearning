@@ -1,5 +1,6 @@
 package com.programlearning.learning.ghs.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.programlearning.learning.ghs.common.GhsConstant;
 import com.programlearning.learning.ghs.spider.SpiderProcessor;
 import com.programlearning.learning.ghs.spider.pipeline.ControllerPipeline;
@@ -19,18 +20,35 @@ import java.util.Objects;
 @RestController
 public class SearchController {
 
+    private static final String NO_RESOURCE = "no resource";
+
+    private PageNode spider(SpiderProcessor spiderProcessor, ControllerPipeline controllerPipeline, String url){
+        Spider.create(spiderProcessor)
+                .addPipeline(controllerPipeline)
+                .addUrl(url)
+                .thread(5)
+                .run();
+        return controllerPipeline.getPageNode();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchDefault(){
+        SpiderProcessor spiderProcessor = new SearchVideoProcessor();
+        ControllerPipeline controllerPipeline = new ControllerPipeline();
+        PageNode pageNode = spider(spiderProcessor, controllerPipeline, GhsConstant.JAVBUS);
+        if (Objects.isNull(pageNode)){
+            return ResponseEntity.badRequest().body(NO_RESOURCE);
+        }
+        return ResponseEntity.ok(pageNode);
+    }
+
     @GetMapping("/search/{key}")
     public ResponseEntity<Object> searchResult(@PathVariable String key){
         SpiderProcessor spiderProcessor = new SearchVideoProcessor();
         ControllerPipeline controllerPipeline = new ControllerPipeline();
-        Spider.create(spiderProcessor)
-                .addPipeline(controllerPipeline)
-                .addUrl(GhsConstant.JAVBUS + "/search/" + key + "/")
-                .thread(5)
-                .run();
-        PageNode pageNode = controllerPipeline.getPageNode();
+        PageNode pageNode = spider(spiderProcessor, controllerPipeline, GhsConstant.JAVBUS + "/search/" + key + "/");
         if (Objects.isNull(pageNode)){
-            return ResponseEntity.badRequest().body("no resource");
+            return ResponseEntity.badRequest().body(NO_RESOURCE);
         }
         return ResponseEntity.ok(pageNode);
     }
@@ -39,14 +57,9 @@ public class SearchController {
     public ResponseEntity<Object> searchNextPage(String nextPageUrl){
         SpiderProcessor spiderProcessor = new SearchVideoProcessor();
         ControllerPipeline controllerPipeline = new ControllerPipeline();
-        Spider.create(spiderProcessor)
-                .addPipeline(controllerPipeline)
-                .addUrl(GhsConstant.JAVBUS + nextPageUrl)
-                .thread(5)
-                .run();
-        PageNode pageNode = controllerPipeline.getPageNode();
+        PageNode pageNode = spider(spiderProcessor, controllerPipeline, GhsConstant.JAVBUS + nextPageUrl);
         if (Objects.isNull(pageNode)){
-            return ResponseEntity.badRequest().body("no resource");
+            return ResponseEntity.badRequest().body(NO_RESOURCE);
         }
         return ResponseEntity.ok(pageNode);
     }

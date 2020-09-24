@@ -1,6 +1,8 @@
 package com.programlearning.learning.ghs.spider.processor;
 
+import cn.hutool.core.util.StrUtil;
 import com.programlearning.learning.ghs.spider.SpiderProcessor;
+import com.programlearning.learning.ghs.spider.pojo.PageNode;
 import com.programlearning.learning.ghs.spider.pojo.VideoNode;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
@@ -29,10 +31,25 @@ public class SearchVideoProcessor extends SpiderProcessor {
             videoNode.setDate(selectable.xpath("date/text()").all().get(1));
             return videoNode;
         }).collect(Collectors.toList());
+
         if (!videoNodeList.isEmpty()){
-            page.putField("videoNodeList",videoNodeList);
+            PageNode pageNode = new PageNode();
+            String current = page.getHtml().$("ul.pagination").$("li.active").xpath("a/text()").get();
+            if (StrUtil.isNotBlank(current)){
+                pageNode.setCurrentPage(Integer.valueOf(current));
+            }else{
+                pageNode.setCurrentPage(0);
+            }
+            String next = page.getHtml().$("ul.pagination").xpath("//a[contains(@id,'next')]").xpath("a/@href").get();
+            if (StrUtil.isNotBlank(next)){
+                pageNode.setNextPageUrl(next);
+            }else{
+                pageNode.setNextPageUrl(null);
+            }
+            pageNode.setVideoNodeList(videoNodeList);
+            page.putField("pageNode",pageNode);
         }else{
-            page.putField("videoNodeList",null);
+            page.putField("pageNode",null);
         }
     }
 }

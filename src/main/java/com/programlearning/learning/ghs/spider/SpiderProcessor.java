@@ -1,7 +1,6 @@
 package com.programlearning.learning.ghs.spider;
 
-import cn.hutool.http.HttpUtil;
-import com.programlearning.learning.ghs.spider.processor.SearchVideoProcessor;
+import com.programlearning.learning.ghs.spider.processor.VideoDetailProcessor;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -35,11 +34,10 @@ public class SpiderProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
-        SearchVideoProcessor searchVideoProcessor = new SearchVideoProcessor();
-        searchVideoProcessor.setUrl("https://www.javbus.com/search/123&type=1");
-        Spider.create(searchVideoProcessor)
+        VideoDetailProcessor videoDetailProcessor = new VideoDetailProcessor();
+        Spider.create(videoDetailProcessor)
                 .thread(5)
-                .addUrl("https://www.javbus.com/search/123&type=1")
+                .addUrl("https://www.javbus.com/STARS-265")
                 .addPipeline(new ConsolePipeline())
                 .run();
         System.out.println("完成");

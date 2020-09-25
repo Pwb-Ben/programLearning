@@ -2,17 +2,17 @@ package com.programlearning.learning.ghs.spider.pipeline;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.http.HttpUtil;
+import com.programlearning.learning.ghs.spider.SpiderPipeline;
 import com.programlearning.learning.ghs.spider.pojo.PageNode;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
-import us.codecraft.webmagic.pipeline.Pipeline;
 
 import java.util.Objects;
 
 /**
  * @author Ben
  */
-public class ControllerPipeline implements Pipeline {
+public class SearchVideoPipeline extends SpiderPipeline {
 
     private PageNode pageNode;
 

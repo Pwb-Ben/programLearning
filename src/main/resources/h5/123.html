@@ -5,6 +5,55 @@
     <title>123</title>
 </head>
 <body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
+    <div id="app">
+        <child-component v-cloak>
+            <h2 id="head" slot="header">标题</h2>
+            <p slot="abc">正文内容</p>
+            <p v-for="index in 100">更多的正文内容</p>
+            <div slot="footer">底部信息<a href="#head">#</a></div>
+        </child-component>
+    </div>
+
+    <script>
+        // Vue.component('child-component', {
+        //     template: '<div class="container">' +
+        //         '<div class="header"><slot name="header"><p>header</p></slot></div>' +
+        //         '<div class="main"><slot>zhengwen</slot></div>' +
+        //         '<div class="footer"><slot name="footer">footer</slot></div>' +
+        //         '</div>',
+        //     mounted: function () {
+        //         var header = this.$slots.heaser
+        //         var main = this.$slots.default
+        //         var footer = this.$slots.footer
+        //         console.log(footer)
+        //         console.log(footer[0].elm.innerHTML)
+        //     }
+        // })
+
+        new Vue({
+            el: '#app',
+            components: {
+                childComponent: {
+                    template: '<div class="container">' +
+                        '<div class="header"><slot name="header"><p>header</p></slot></div>' +
+                        '<div class="main"><slot>zhengwen</slot></div>' +
+                        '<div class="footer"><slot name="footer">footer</slot></div>' +
+                        '</div>',
+                    mounted: function () {
+                        var header = this.$slots.heaser
+                        var main = this.$slots.default
+                        var footer = this.$slots.footer
+                        console.log(footer)
+                        console.log(footer[0].elm.innerHTML)
+                    }
+                }
+            },
+            data: {
+
+            }
+        })
+    </script>
 </body>
 </html>

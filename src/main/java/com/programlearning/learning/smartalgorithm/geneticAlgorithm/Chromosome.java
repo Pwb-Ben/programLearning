@@ -13,16 +13,19 @@ public class Chromosome {
     }
 
     public Chromosome(int size) {
-        if (size <= 0)
+        if (size <= 0){
             return;
+        }
         gene = new boolean[size];
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++){
             gene[i] = Math.random() >= 0.5;
+        }
     }
 
     public static Chromosome clone(Chromosome chromosome) {
-        if (chromosome == null || chromosome.gene == null)
+        if (chromosome == null || chromosome.gene == null){
             return null;
+        }
         Chromosome copy = new Chromosome();
         copy.gene = new boolean[chromosome.gene.length];
         copy.score = chromosome.score;
@@ -37,8 +40,9 @@ public class Chromosome {
      * @return 交叉后的对象
      */
     public static List<Chromosome> genetic(Chromosome p1, Chromosome p2, double crossRate) {
-        if (p1 == null ||p2 == null)
+        if (p1 == null ||p2 == null){
             return null;
+        }
         if (p1.gene == null || p2.gene == null) {
             return null;
         }
@@ -69,8 +73,9 @@ public class Chromosome {
     }
 
     public void mutation(int num) {
-        if (num == 0)
+        if (num == 0){
             return;
+        }
         int size = gene.length;
         for (int i = 0; i < num; i++) {
             int at = (int)(Math.random() * size) % size;
@@ -80,13 +85,15 @@ public class Chromosome {
     }
 
     public int binary2dec() {
-        if (gene == null)
+        if (gene == null){
             return 0;
+        }
         int num = 0;
         for (boolean b : gene) {
             num <<= 1;
-            if (b)
+            if (b){
                 num++;
+            }
         }
         return num;
     }

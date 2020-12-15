@@ -1,5 +1,8 @@
 package com.programlearning.learning.base;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
 public class Base {
 
     /**
@@ -14,7 +17,7 @@ public class Base {
      */
     static class People {
         private String name;
-        private static People people = new People();
+        //private static People people = new People();
         private static int n = 10;
         private int age = setAge();
         protected int sex;
@@ -40,10 +43,11 @@ public class Base {
         }
 
         public People(String name, int age) {
+            System.out.println("age:" + this.age);
             this.name = name;
             this.age = age;
             System.out.println("有参构造函数");
-            System.out.println("age:" + age);
+            System.out.println("age:" + this.age);
         }
 
         {
@@ -86,5 +90,14 @@ public class Base {
         for(int i = 0; i<s.length(); i++){
             System.out.println(ch[i]);
         }
+
+        Class studentClass = p1.getClass();
+        //获得构造子，用于实例化对象
+        Constructor[] cons = studentClass.getConstructors();
+        //getFields()：获得某个类的所有的公共（public）的字段，包括父类中的字段
+        Field[] field1 = studentClass.getFields();
+        //getDeclaredFields()：获得某个类的所有声明的字段，即包括public、private和proteced，但是不包括父类的申明字段
+        Field[] field2 = studentClass.getDeclaredFields();
+
     }
 }

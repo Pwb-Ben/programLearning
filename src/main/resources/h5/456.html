@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基于WebRTC的屏幕录制工具</title>
+</head>
+<body>
+    <button id="start">第一步：屏幕分享</button>
+    <button id="record">第二步：开始录制</button>
+    <button id="stop">第三步：结束录制</button>
+    <button id="download">第四步：下载视频</button>
+    <video autoplay playsinline id="player"></video>
+
+    <script>
+        //通过getDisplayMedia方法来获取桌面的媒体流
+        let allStream;
+        document.querySelector('#start').onclick = function() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+                navigator.mediaDevices.getDisplayMedia({
+                    video: true,
+                    audio: false
+                }).then((stream) => {
+                    allStream = stream;
+                    document.querySelector('#player').srcObject = stream;
+                }).catch((err) => {
+                    console.error(err);
+                })
+            } else {
+                alert('不支持这个特性');
+            }
+        }
+
+        let buf = [];
+        let mediaRecorder;
+        let mimeType = 'video/webm;codecs=vp8';
+        //通过MediaRecorder类将获取到的媒体流记录来实现录屏
+        document.querySelector('#record').onclick = function() {
+            // 约束视频格式
+            const options = {
+                mimeType: mimeType
+            }
+            // 判断是否是支持的mimeType格式
+            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                console.error('不支持的视频格式');
+                return;
+            }
+            try {
+                mediaRecorder = new MediaRecorder(allStream, options);
+                // 处理采集到的事件
+                mediaRecorder.ondataavailable = function(e) {
+                    if (e && e.data && e.data.size > 0) {
+                        // 存储到数组中
+                        buf.push(e.data);
+                    }
+                };
+                // 开始录制(10s存储一块数据)
+                mediaRecorder.start(10);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        // document.querySelector('#stop').onclick = function() {
+        //     if (mediaRecorder) {
+        //         mediaRecorder.stop();
+        //     }
+        // }
+
+        document.querySelector('#download').onclick = function() {
+            mediaRecorder.stop();
+            if (buf.length) {
+                const blob = new Blob(buf, { type: 'video/webm'});
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.style.display = 'none';
+                a.download = 'aaa.mp4';
+                a.click();
+            } else {
+                alert('还没有录制任何内容');
+            }
+        }
+
+    </script>
+</body>
+</html>

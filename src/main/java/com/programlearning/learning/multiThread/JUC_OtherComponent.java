@@ -114,6 +114,17 @@ public class JUC_OtherComponent {
         }
 
         /**
+         * 在Java8中，CompletableFuture提供了非常强大的Future的扩展功能，可以帮助我们简化异步编程的复杂性，
+         * 并且提供了函数式编程的能力，可以通过回调的方式处理计算结果，也提供了转换和组合 CompletableFuture 的方法。
+         * 它可能代表一个明确完成的Future，也有可能代表一个完成阶段（ CompletionStage ），它支持在计算完成以后触发一些函数或执行某些动作。
+         */
+        CompletableFuture.supplyAsync(() -> "hello")
+                .thenApply(s -> s+"world")
+                .thenApply(String::toUpperCase)
+                .thenCombine(CompletableFuture.completedFuture("java"), (s1,s2) -> s1+s2)
+                .thenAccept(System.out::println);
+
+        /**
          * ForkJoin
          * 主要用于并行计算中，和 MapReduce 原理类似，都是把大的计算任务拆分成多个小任务并行计算。
          * ForkJoinPool 实现了工作窃取算法来提高 CPU 的利用率。每个线程都维护了一个双端队列，用来存储需要执行的任

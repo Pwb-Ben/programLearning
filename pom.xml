@@ -153,14 +153,16 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--<configuration>-->
+                <configuration>
                     <!-- 将本地jar包打包进war包中 -->
-                    <!--<includeSystemScope>true</includeSystemScope>-->
-                <!--</configuration>-->
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -173,6 +175,26 @@
                     <compilerArguments>
                         <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
                     </compilerArguments>
+                </configuration>
+            </plugin>
+
+            <!-- docker的maven插件，官网： https://github.com/spotify/docker-maven-plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>192.168.184.135:5000/${project.artifactId}:${project.version}</imageName>
+                    <baseImage>jdk1.8</baseImage>
+                    <entryPoint>["java", "‐jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <dockerHost>http://192.168.184.135:2375</dockerHost>
                 </configuration>
             </plugin>
         </plugins>

@@ -4,7 +4,6 @@ import com.programlearning.learning.spring.applicationListener.diyApplicationEve
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
@@ -19,11 +18,16 @@ import javax.annotation.PostConstruct;
  * 更多详见：http://www.likecs.com/show-63032.html
  * springboot容器启动详解：https://www.cnblogs.com/dennyzhangdd/p/8028950.html
  */
-@Component
+//@Component
 public class TestInitializingBean implements InitializingBean, SmartInitializingSingleton {
 
-    @Autowired
     TestCreateEventService testCreateEventService;
+
+    @Autowired
+    private void setTestCreateEventService(TestCreateEventService testCreateEventService){
+        System.out.println("TestInitializingBean 调用set方法注入 testCreateEventService");
+        this.testCreateEventService = testCreateEventService;
+    }
 
     public TestInitializingBean() {
         System.out.println("TestInitializingBean的构造函数被调用");

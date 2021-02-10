@@ -184,17 +184,30 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <configuration>
+                    <!--指定生成的镜像名-->
                     <imageName>192.168.184.135:5000/${project.artifactId}:${project.version}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <!--指定基础镜像jdk1.8-->
                     <baseImage>jdk1.8</baseImage>
+                    <!--切换到ROOT目录-->
+                    <workdir>/ROOT</workdir>
+                    <cmd>["java", "-version"]</cmd>
                     <entryPoint>["java", "‐jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://192.168.184.135:2375</dockerHost>
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
+                            <!--jar 包所在的路径  此处配置的 即对应 target 目录-->
                             <directory>${project.build.directory}</directory>
+                            <!--用于指定需要复制的文件 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名 -->
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <dockerHost>http://192.168.184.135:2375</dockerHost>
                 </configuration>
             </plugin>
         </plugins>

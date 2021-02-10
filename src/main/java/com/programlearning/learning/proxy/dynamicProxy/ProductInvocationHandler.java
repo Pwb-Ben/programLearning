@@ -6,14 +6,23 @@ import java.lang.reflect.Proxy;
 
 public class ProductInvocationHandler implements InvocationHandler {
 
-    // 目标对象
+    /**
+     * 目标对象
+     */
     private Object target;
+
+    /**
+     * 默认构造方法
+     */
+    ProductInvocationHandler(){
+        this.target = null;
+    }
 
     /**
      * 构造方法
      * @param target 目标对象
      */
-    public ProductInvocationHandler(Object target) {
+    ProductInvocationHandler(Object target) {
         this.target = target;
     }
 
@@ -22,10 +31,13 @@ public class ProductInvocationHandler implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Object result = null;
         // 在目标对象的方法执行之前简单的打印一下
         System.out.println("检查产品");
         // 执行目标对象的方法
-        Object result = method.invoke(target, args);
+        if (target!=null){
+            result = method.invoke(target, args);
+        }
         // 在目标对象的方法执行之后简单的打印一下
         System.out.println("添加完成");
         return result;
@@ -36,8 +48,9 @@ public class ProductInvocationHandler implements InvocationHandler {
      * @return 代理对象
      */
     @SuppressWarnings("unchecked")
-    public <T> T getProxy(Class interfaces) {
-        return (T)Proxy.newProxyInstance(interfaces.getClassLoader(),
+    <T> T getProxy(Class interfaces) {
+        return (T)Proxy.newProxyInstance(
+                interfaces.getClassLoader(),
                 new Class[]{interfaces},
                 this);
     }

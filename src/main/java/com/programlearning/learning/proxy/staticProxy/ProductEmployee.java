@@ -2,9 +2,9 @@ package com.programlearning.learning.proxy.staticProxy;
 
 public class ProductEmployee implements ProductService{
 
-    ProductServiceImpl productService;
+    private ProductServiceImpl productService;
 
-    public ProductEmployee(ProductServiceImpl productService) {
+    ProductEmployee(ProductServiceImpl productService) {
         this.productService = productService;
     }
 

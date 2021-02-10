@@ -12,7 +12,7 @@ public class DynamicProxy {
 
         ProductService impl = new ProductServiceImpl();
         ProductInvocationHandler productInvocationHandler = new ProductInvocationHandler(impl);
-        ProductService proxy = (ProductService) productInvocationHandler.getProxy(ProductService.class);
+        ProductService proxy = productInvocationHandler.getProxy(ProductService.class);
         proxy.addProduct("book");
     }
 }

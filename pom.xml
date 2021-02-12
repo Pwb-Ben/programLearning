@@ -24,9 +24,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
+                <!--默认容器是tomcat，去掉tomcat使用undertow-->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -35,9 +40,20 @@
             <!--<artifactId>spring-boot-starter-jdbc</artifactId>-->
         <!--</dependency>-->
 
+        <!--引入undertow容器依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <!--log4j2日志系统-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
 
         <dependency>
@@ -169,7 +185,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <!-- 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，源代码中需要没有使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
+                    <!-- 源代码使用的开发版本 -->
                     <source>${java.version}</source>
+                    <!-- 需要生成的目标class文件的编译版本 -->
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                     <compilerArguments>
@@ -179,30 +198,68 @@
             </plugin>
 
             <!-- docker的maven插件，官网： https://github.com/spotify/docker-maven-plugin -->
+            <!--Docker配置JDK1.8 https://www.cnblogs.com/coloz/p/11121311.html-->
+            <!--docker-maven-plugin打包镜像，并上传到私有仓库 https://blog.csdn.net/zhangjunli/article/details/107642552-->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
+                <!--将插件绑定在某个phase执行-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>build-image</id>-->
+                        <!--&lt;!&ndash;用户只需执行mvn package ，就会自动执行mvn docker:build&ndash;&gt;-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>build</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>tag-image</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>tag</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<image>${project.artifactId}:${project.version}</image>-->
+                            <!--<newName>192.168.0.106:5000/${project.artifactId}:${project.version}</newName>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>push-image</id>-->
+                        <!--<phase>deploy</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>push</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<imageName>192.168.0.106:5000/${project.artifactId}:${project.version}</imageName>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
                 <configuration>
                     <!--指定生成的镜像名-->
-                    <imageName>192.168.184.135:5000/${project.artifactId}:${project.version}</imageName>
+                    <imageName>192.168.0.106:5000/${project.artifactId}:${project.version}</imageName>
                     <!--指定标签-->
-                    <imageTags>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
+                    <!--<imageTags>-->
+                        <!--<imageTag>${project.version}</imageTag>-->
+                    <!--</imageTags>-->
                     <!--指定基础镜像jdk1.8-->
-                    <baseImage>jdk1.8</baseImage>
-                    <!--切换到ROOT目录-->
-                    <workdir>/ROOT</workdir>
+                    <baseImage>jdk11</baseImage>
+                    <!--镜像制作人本人信息-->
+                    <maintainer>992733984@qq.com</maintainer>
+                    <!--切换到主目录-->
+                    <!--<workdir>/</workdir>-->
+                    <!--cmd给出的是一个容器的默认的可执行体。也就是容器启动以后，默认的执行的命令-->
                     <cmd>["java", "-version"]</cmd>
-                    <entryPoint>["java", "‐jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!--容器启动以后要执行命令-->
+                    <entryPoint>["java", "‐jar", "/usr/${project.build.finalName}.jar"]</entryPoint>
                     <!--指定远程 docker api地址-->
-                    <dockerHost>http://192.168.184.135:2375</dockerHost>
+                    <dockerHost>http://192.168.0.106:2375</dockerHost>
                     <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
                     <resources>
                         <resource>
-                            <targetPath>/</targetPath>
-                            <!--jar 包所在的路径  此处配置的 即对应 target 目录-->
+                            <targetPath>/usr</targetPath>
+                            <!--jar 包所在的路径 此处配置的 即对应 target 目录-->
                             <directory>${project.build.directory}</directory>
                             <!--用于指定需要复制的文件 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名 -->
                             <include>${project.build.finalName}.jar</include>

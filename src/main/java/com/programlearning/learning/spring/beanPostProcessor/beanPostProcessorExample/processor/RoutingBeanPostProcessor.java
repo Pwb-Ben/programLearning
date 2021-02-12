@@ -50,6 +50,7 @@ public class RoutingBeanPostProcessor implements BeanPostProcessor {
         return bean;
     }
 
+    @SuppressWarnings("unchecked")
     private void handleRoutingInjected(Field field, Object bean, Class type, String beanValue) throws IllegalAccessException {
         Map<String, Object> candidates = this.applicationContext.getBeansOfType(type);
         field.setAccessible(true);

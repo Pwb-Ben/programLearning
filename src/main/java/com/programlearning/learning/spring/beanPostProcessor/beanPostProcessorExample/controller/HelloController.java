@@ -11,7 +11,7 @@ public class HelloController {
     @RoutingInjected("helloServiceImplV2")
     private HelloService helloService;
 
-    @GetMapping
+    @GetMapping("testBeanPostProcessor")
     public String sayHello(){
         return helloService.sayHello();
     }

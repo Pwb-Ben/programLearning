@@ -5,19 +5,26 @@ import java.util.Vector;
 
 public class Ant {
 
-    private Vector<Integer> tabu; //禁忌表
-    private Vector<Integer> allowedCities; //允许搜索的城市
-    private float[][] delta; //信息数变化矩阵
-    private int[][] distance; //距离矩阵
+    //禁忌表
+    private Vector<Integer> tabu;
+    //允许搜索的城市
+    private Vector<Integer> allowedCities;
+    //信息数变化矩阵
+    private float[][] delta;
+    //距离矩阵
+    private int[][] distance;
 
     private float alpha;
     private float beta;
 
-    private int tourLength; //路径长度
-    private int cityNum; //城市数量
-
-    private int firstCity; //起始城市
-    private int currentCity; //当前城市
+    //路径长度
+    private int tourLength;
+    //城市数量
+    private int cityNum;
+    //起始城市
+    private int firstCity;
+    //当前城市
+    private int currentCity;
 
     public Ant(){
         cityNum = 30;
@@ -41,13 +48,12 @@ public class Ant {
     public void init(int[][] distance, float a, float b){
         alpha = a;
         beta = b;
-        allowedCities = new Vector<Integer>();
-        tabu = new Vector<Integer>();
+        allowedCities = new Vector<>();
+        tabu = new Vector<>();
         this.distance = distance;
         delta = new float[cityNum][cityNum];
         for (int i = 0; i < cityNum; i++) {
-            Integer integer = new Integer(i);
-            allowedCities.add(integer);
+            allowedCities.add(i);
             for (int j = 0; j < cityNum; j++) {
                 delta[i][j] = 0.f;
             }
@@ -56,12 +62,12 @@ public class Ant {
         Random random = new Random(System.currentTimeMillis());
             firstCity = random.nextInt(cityNum);
              for (Integer i:allowedCities) {
-                 if (i.intValue() == firstCity) {
+                 if (i == firstCity) {
                      allowedCities.remove(i);
                      break;
                  }
              }
-             tabu.add(Integer.valueOf(firstCity));
+             tabu.add(firstCity);
              currentCity = firstCity;
         }
         /**
@@ -73,20 +79,20 @@ public class Ant {
             float sum = 0.0f;
             //计算分母部分
             for (Integer i:allowedCities) {
-                sum += Math.pow(pheromone[currentCity][i.intValue()], alpha)*Math.pow(1.0/distance[currentCity][i.intValue()], beta);
+                sum += Math.pow(pheromone[currentCity][i], alpha)*Math.pow(1.0/distance[currentCity][i.intValue()], beta);
             }
             //计算概率矩阵
             for (int i = 0; i < cityNum; i++) {
                 boolean flag = false;
                 for (Integer j:allowedCities) {
-                    if (i == j.intValue()) {
+                    if (i == j) {
                         p[i] = (float) (Math.pow(pheromone[currentCity][i], alpha)*Math.pow(1.0/distance[currentCity][i], beta))/sum;
                         flag = true;
                         break;
                     }
                 }
 
-                if (flag == false) {
+                if (!flag) {
                     p[i] = 0.f;
                 }
             }
@@ -106,13 +112,13 @@ public class Ant {
 
             //从允许选择的城市中去除select city
             for (Integer i:allowedCities) {
-                if (i.intValue() == selectCity) {
+                if (i == selectCity) {
                     allowedCities.remove(i);
                     break;
                 }
             }
             //在禁忌表中添加select city
-            tabu.add(Integer.valueOf(selectCity));
+            tabu.add(selectCity);
             //将当前城市改为选择的城市
             currentCity = selectCity;
         }
@@ -124,7 +130,7 @@ public class Ant {
         private int calculateTourLength(){
             int len = 0;
             for (int i = 0; i < cityNum; i++) {
-                len += distance[this.tabu.get(i).intValue()][this.tabu.get(i+1).intValue()];
+                len += distance[this.tabu.get(i)][this.tabu.get(i + 1)];
             }
             return len;
         }

@@ -9,3 +9,6 @@ file:
     path:
   mac:
     path:
+
+logging:
+  config: classpath:log4j2.yml

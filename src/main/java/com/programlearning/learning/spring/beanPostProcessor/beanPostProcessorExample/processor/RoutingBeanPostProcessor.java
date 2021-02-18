@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class RoutingBeanPostProcessor implements BeanPostProcessor {
                 }
                 try {
                     String beanValue = field.getAnnotation(RoutingInjected.class).value();
-                    if (beanValue.isBlank()){
+                    if (StringUtils.isEmpty(beanValue)){
                         throw new BeanCreationException("RoutingInjected's value is blank, field: " + field.getName() + " @Class " + targetCls.getName());
                     }
                     this.handleRoutingInjected(field, bean, field.getType(), beanValue);

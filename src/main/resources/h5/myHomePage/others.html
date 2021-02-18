@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>其他</title>
+    <style>
+        body {
+            color: #333333;
+            min-height: 100%;
+            width: 100%;
+            min-width: 100%;
+            height: auto;
+            margin: 0 auto;
+
+            font-size: 12px;
+            font-family: Helvetica, Arial,'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',Meiryo, メイリオ, sans-serif;
+            letter-spacing: 0.1em;
+            line-height:180%;
+            -webkit-text-size-adjust: 100%;/* スマホ回転時の文字自動調整をオフ */
+            -webkit-touch-callout:none; /* スマホ長押し無効化*/
+        }
+        header {
+            background:#FFF;
+            width: 100%;
+            min-width: 768px;
+            text-align: center;
+            padding: 10px 0 0 0;
+        }
+        h1.logo {
+            margin:0;
+            padding: 0;
+            height:50px;
+        }
+        a img {
+            text-decoration: none;
+            border: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        #toggle{
+            display: none;
+        }
+        #navigation{
+            background:#FFF;
+            border-bottom:#e3e2df solid 1px;
+            margin:0;
+            padding: 0;
+            text-align: center;
+        }
+        #navigation li{
+
+            display: inline-block;
+        /display: inline;  /* IE用 */
+        /zoom: 1;  /* IE用 */
+
+            margin:5px 100px;
+            padding: 10px 0;
+
+            font-family: 'Helvetica Neue','Roboto', sans-serif;
+            font-size: 10px;
+            list-style-position: none;
+            list-style: none;
+            letter-spacing: 0.2em;
+        }
+        #navigation li a{
+            color: #333;
+            padding: 20px 0;
+            text-decoration: none;
+        }
+        #navigation li a:hover {
+            color:#d6d5e0;
+            text-decoration: none;
+        }
+        main{
+            width: 100%;
+            margin: 5px auto;
+        }
+        #contents{
+            width: 100%;
+            margin: 0px auto;
+            padding: 0;
+        }
+        #masonry{
+            width: 100%;
+            margin: 0 auto;
+            padding: 0px;
+        }
+        .grid{
+            width: 200px;
+            margin: 4px;
+            padding: 0;
+            float: left;
+        }
+        .grid img {
+            max-width: 100%;
+            display: block;
+        }
+        a img {
+            text-decoration: none;
+            border: none;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+<header id="header">
+    <h1 class="logo">
+        <a href="https://www.junaida.com/">
+            <img src="https://www.junaida.com/images/logo.gif" width="150" height="50">
+        </a>
+    </h1>
+    <nav>
+        <div id="toggle"><a href="https://www.junaida.com/information#">MENU</a></div>
+        <ul id="navigation">
+            <li><a href="/h5/myHomePage/index.html">简 介</a></li>
+            <li><a href="/h5/myHomePage/story.html">故 事</a></li>
+            <li><a href="/h5/myHomePage/comics.html">漫 画</a></li>
+            <li><a href="/h5/myHomePage/others.html">其 他</a></li>
+            <div class="clear"></div>
+        </ul>
+    </nav>
+</header>
+
+<main role="main">
+    <div id="contents">
+        <div id="masonry">
+
+        </div>
+    </div>
+</main>
+
+<script>
+    $(function(){
+        for(var i=0; i<30; i++){
+            $("#masonry").append('<div class="grid"><a href="https://picsum.photos/200/300?random=' + i + '" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
+            $("#masonry").append('<div class="grid"><a href="https://picsum.photos/500/300?random=' + i + '" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
+        }
+
+        var $container = $('#masonry');
+        $container.imagesLoaded(function(){
+            $container.masonry({
+                itemSelector : '.grid',//整理される要素のclassを指定
+                isFitWidth: true, //親要素の幅に合わせてカラム数を自動調整
+                isAnimated : true //アニメーション設定
+            });
+        });
+        $container.infinitescroll({
+                navSelector : '#page-nav', // ページのナビゲーションを選択
+                nextSelector : '#page-nav a', // 次ページへのリンク
+                itemSelector : '.grid', // 持ってくる要素のclass
+                loading: {
+                    finishedMsg: 'No more images to load.', //次のページがない場合に表示するテキスト
+                    img: '../images/loading.gif' //ローディング画像のパス
+                }
+            },
+            function( newElements ) {
+                var $newElems = $( newElements ).css({ opacity: 0 });
+                $newElems.imagesLoaded(function(){
+                    $newElems.animate({ opacity: 1 });
+                    $container.masonry( 'appended', $newElems, true );
+                });
+            });
+    });
+</script>
+</body>
+</html>

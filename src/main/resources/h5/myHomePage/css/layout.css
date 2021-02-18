@@ -1,0 +1,352 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* ■　base　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
+html {
+	min-height: 100%;
+	}
+	
+body {
+ 	color: #333333;
+	min-height: 100%;
+	width: 100%;
+	min-width: 100%;
+	height: auto;
+	margin: 0 auto;
+	
+	font-size: 12px;
+	font-family: Helvetica, Arial,'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',Meiryo, メイリオ, sans-serif;
+	letter-spacing: 0.1em;
+	line-height:180%;
+	-webkit-text-size-adjust: 100%;/* スマホ回転時の文字自動調整をオフ */
+	-webkit-touch-callout:none; /* スマホ長押し無効化*/
+	}
+
+	img {
+		vertical-align: bottom;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-moz-touch-callout: none;
+		-moz-user-select: none;
+		touch-callout: none;
+		-ms-user-select: none;
+			user-select: none;
+	  }
+	  
+	  body {
+		user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-drag: none;
+		-khtml-user-drag: none;
+	  }
+
+/* ■　header　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+header {
+	background:#FFF;
+	width: 100%;
+	min-width: 768px;
+	text-align: center;
+	padding: 10px 0 0 0;
+	}
+	
+
+h1.logo {
+	margin:0;
+	padding: 0;
+	height:50px;
+	}
+
+/* ■　navi　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+	
+#navigation{
+	background:#FFF;
+	border-bottom:#e3e2df solid 1px;
+	margin:0;
+	padding: 0;
+	text-align: center;
+	}
+	
+#navigation li{
+  
+    display: inline-block;
+    /display: inline;  /* IE用 */
+    /zoom: 1;  /* IE用 */
+	
+	margin:5px 100px;
+	padding: 10px 0;
+	
+	font-family: 'Helvetica Neue','Roboto', sans-serif;
+	font-size: 10px;
+	list-style-position: none;
+	list-style: none;
+	letter-spacing: 0.2em;
+  }
+#navigation li a{
+	color: #333;
+	padding: 20px 0;
+}
+
+#navigation li a:hover {
+	color:#d6d5e0;
+	text-decoration: none;
+	}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+	z-index: 9999;
+}
+
+
+#toggle{ 
+ display: none;
+}
+
+/* ■　main　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+
+main{
+	width: 100%;
+	margin:5px auto;
+}
+
+
+#contents{
+	width: 100%;
+    margin: 0px auto;
+	padding:0;
+	}
+
+/*ul.contents_list {
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.contents_list li{
+    padding: 5px;
+    margin: 0px 0px 0px 15px;
+}
+*/
+/* ■　footer　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+
+footer{	
+	clear:both;
+	margin:0 auto;
+	padding: 3px 0;
+	text-align: center;
+	color:#999;
+	line-height:100%;
+}
+
+
+ul#other_link {
+	margin: 10px 0px;
+	padding: 0;
+	text-align:center;
+	}
+
+ul#other_link li {
+	font-size: 13px;
+	list-style-position: none;
+	list-style: none;
+	margin: 0px 5px;
+	padding: 0;
+	display:inline-block;
+	}
+	
+ul#other_link a {color:#999;}
+footer p.copy{
+	font-size:9px;
+	letter-spacing: 0.1em;
+	line-height:180%;
+}
+
+/* ■　ABOUT & STORE　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
+
+/* ------------ ２段組 ------------ */
+.box_left,
+.box_right{
+	letter-spacing: 0.1em;
+	float:left;
+	margin: 0 0 30px 0;
+	}
+
+.box_left{
+	width: 50%;
+	padding: 0 30px 0 0;
+	}
+
+	
+.box_right.about_eng{
+	padding:0 0 0 30px;
+	border-left:#e3e2df dashed 1px;
+	}
+
+
+.box_left{
+	width: 50%;
+	}
+	
+.box_left h2,
+.box_right h2{
+	overflow:hidden;
+	}
+
+/* ---------------------- */
+dl.data{
+	margin: 0 0 0 0;
+	padding: 0px;
+	}
+dl.data dt{
+	float:left;
+	}
+dl.data dd{
+	white-space:nowrap;
+}
+
+dl.data dd.store_info{padding: 0 0 0 50px;}
+
+/* ------------ snsリンク ------------ */
+
+ul.sns_link {
+	margin: 10px 0px;
+	padding: 0;
+	}
+ul.sns_link li{
+	list-style-position: none;
+	list-style: none;
+	margin: 0 20px 0 0;
+	display:inline-block;
+	}
+
+
+
+/* ■　gallery　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
+
+
+#masonry {  
+	width:100%;
+	margin: 0 auto;
+	padding:0px;
+}  
+
+.grid {
+	width:200px;
+	margin: 4px;
+	padding:0;
+	float: left;
+}
+
+.grid img {
+	max-width:100%;
+	display:block;
+}
+
+	
+#infscr-loading {
+	margin-left: -100px;
+	width: 200px;
+	position: fixed;
+	left: 50%;
+	bottom: 40px;
+	text-align: center;
+	padding: 10px;
+	background: #000;
+	opacity: 0.8;
+	color: #FFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	z-index: 1000;
+}
+
+
+/* ■　common　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+
+/* ------------ リンクボックス ------------ */
+div.link_box{
+	font-size: 10px;
+	line-height: 170%;
+	background:#F8F8F8;
+	margin: 10px 0px;
+	padding: 10px 20px;
+}
+
+div.link_box ul{
+	margin: 0px 10px;
+	padding: 0px;
+}
+div.link_box ul li{
+	letter-spacing: 0.1em;
+	display:inline-block;
+	list-style-type: none;
+}
+
+h2.link_box_inside{
+	font-size: 160%;
+	border-left:none;
+	border-bottom:#e3e2df solid 1px;
+	padding:5px 10px 10px 10px;
+	margin:0 0 10px 0;
+}
+
+/* ------------ clearfix ------------ */
+.clearfix:after {
+   content: ".";
+   display: block;
+   clear: both;
+   height: 0px;
+   visibility: hidden;
+}
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block;}
+	
+.clear {
+	clear: both;
+	}
+	
+/* ------------ 画像 ------------ */
+
+/* リストイメージの隙間をなくす */
+li img{border:none;vertical-align: bottom;}
+a img {
+	text-decoration: none;
+	border: none;
+	margin:0px;
+	padding:0px;
+	}
+	
+/* ieで縮小画像きれいに */
+img {-ms-interpolation-mode: bicubic;}
+
+
+	
+/* オンマウスで半透明 */
+a:hover.alpha img {
+filter: alpha(opacity=75);/*←IE*/
+-moz-opacity:0.75;/*←firefox*/
+opacity:0.75;/*←Opera・Safari*/
+}
+
+
+/* 埋め込み動画のレスポンシブ対応 */
+.video_size {
+  position: relative;
+  height: 0;
+ padding-top: 56.25%;
+  overflow: hidden;
+}
+
+.video_size iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+ 

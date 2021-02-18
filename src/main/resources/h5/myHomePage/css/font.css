@@ -1,0 +1,141 @@
+@charset "UTF-8";
+/* CSS Document */
+
+h2{
+	border-left:1px solid #333;
+	padding:5px 0 5px 15px;
+	margin:30px 0 20px 0;
+	font-size: 130%;
+	font-weight:normal;
+	line-height:150%;
+	font-family: 'Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3', sans-serif;
+}
+h2 a{
+	color: #333;
+	padding: 20px 0;
+}
+
+
+h3{
+	font-size: 170%;
+	font-weight: normal;
+	line-height:170%;
+	margin:20px 0;
+}
+
+h4{
+	font-size: 160%;
+	font-weight: normal;
+	line-height:170%;
+	margin:0;
+	padding:0;
+}
+
+h5{
+	font-size: 120%;
+	font-weight: normal;
+	line-height:170%;
+	margin:10px 0;
+	padding:0;
+}
+
+
+/* P FONT */
+p{
+	line-height: 2.2;
+	margin: 10px 0;
+	padding: 0;
+	}
+	
+hr{ border: 0;
+    border-bottom:#e3e2df solid 1px;
+	}	
+
+	
+/* リンク文字 */
+
+a {
+	color:#364568;
+	text-decoration: none;
+	transition:  color 0.2s ease-in-out;
+    -webkit-transition:  color 0.2s ease-in-out;
+	-moz-transition:  color 0.2s ease-in-out;
+	-o-transition:  color 0.2s ease-in-out;
+	-ms-transition:  color 0.2s ease-in-out;
+	}
+
+a:hover {
+	color:#d6d5e0;
+	text-decoration: none;
+	}
+	
+/* リンク背景あり */
+a.a_bg { 
+	color:#003;
+	text-decoration: none;
+	}
+
+a:hover.a_bg { 
+	background-color:#fff;
+	text-decoration: none;
+	transition:  background-color 0.2s ease-in-out;
+    -webkit-transition:  background-color 0.2s ease-in-out;
+	-moz-transition:  background-color 0.2s ease-in-out;
+	-o-transition:  background-color 0.2s ease-in-out;
+	-ms-transition:  background-color 0.2s ease-in-out;
+	}
+	
+
+	
+/* その他フォントに関する共通設定 */	
+table {
+    font-size:inherit;
+    font:100%;
+}
+
+/* =====フォント：大きさ===== */
+.f10 { font-size:77%; line-height:140%;}
+.f11 { font-size:85%; }
+.f12 { font-size:93%; }
+.f13 { font-size:100%; }
+.f14 { font-size:108%; }
+.f15 { font-size:116%; }
+.f16 { font-size:123.1%; }
+.f17 { font-size:131%; }
+.f18 { font-size:138.5%; }
+.f19 { font-size:146.5%; }
+.f20 { font-size:153.9%; }
+.f21 { font-size:161.6%; }
+.f22 { font-size:167%; }
+.f23 { font-size:174%; }
+.f24 { font-size:182%; }
+.f25 { font-size:189%; }
+.f26 { font-size:197%; }
+
+/* =====フォント：色===== */
+.f_bold{font-weight: bold;}
+.f_red{color:#FF0000;}
+.f_blue{color:#0099CC;}
+.f_green{color: #006633;}
+.f_pink{color: #FF6666;}
+.f_white{color: #FFFFFF;}
+.f_gray{color: #666666;}
+
+/* =====フォント：クラス===== */
+.notice{font-weight:bold; color:#FF0000;}
+.attention{color:#F09B8D;}
+.f_normal{font-weight:normal;}
+span.font_smaller {
+	font-size: 80%;
+	letter-spacing: 0em;
+	}
+	
+/* 文字選択時背景色 */
+::-moz-selection {
+	color: #333;
+	background:#B8B4AF;
+	}
+::selection{
+	color: #333;
+	background:#B8B4AF;
+	}

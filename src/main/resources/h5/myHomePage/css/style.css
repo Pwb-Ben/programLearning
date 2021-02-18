@@ -1,0 +1,148 @@
+/*
+Theme Name: junaida.com
+Theme URI: http://www.junaida.com/
+Description: This is junaida.com theme.
+Author:Eri Aida
+*/
+
+
+body {
+background-image:none;
+background-color:#ffffff;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝メイン＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+main{
+	width: 90%;
+	max-width: 1600px;
+	margin:0 auto;
+}
+
+div#contents{
+	width: 100%;
+	max-width: 1400px;
+	margin:0 auto;
+	}
+
+div#contents img{
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝独立ページのメニュー＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+ul#pagemenu{
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+ul#pagemenu li{
+display: inline;
+padding-right: 20px;
+}
+ul#pagemenu li a{
+font-size: 0.75em;
+text-decoration: none;
+}
+
+/* ＝＝＝＝＝＝＝＝＝＝＝＝記事＝＝＝＝＝＝＝＝＝＝＝＝ */
+div.post{
+	margin:10px 0;
+		}
+
+/* ----↓文章----*/
+div.post p{
+font-size:12px;
+line-height: 170%;
+margin: 10px 0px;
+}
+
+/* ----↓日付け＆カテゴリー----*/
+div.post .postinfo{
+font-size: 9px;
+margin: 30px 0;
+clear: both;
+}
+
+/* ----↓記事内の画像----*/
+div.post_content img{
+	width: 100%;/* page.phpにはつけない。つけるとフォームの下にスペースができる*/
+	margin:5px 0;
+	}
+	/* ----↓ハーフサイズ画像----*/
+	div.post_content img.img_half{
+		width: 50%;
+		float:left;
+		}
+	@media screen and (max-width: 768px) {
+	div.post_content img.img_half{
+		width: 100%;
+		float : none ; }
+	} 
+.aligncenter{display: block;margin:0 auto;}
+.alignright,.alignleft{margin:0 10px 2px 0;}
+.alignleft{float: left;}
+.alignright{float: right;}
+.wp-caption{
+border: solid 1px #CCC;
+text-align: center;
+padding-top: 5px;
+margin-top: 10px;
+}
+/* 右寄せ、左寄せにした時の余白*/
+div.post img.alignleft{margin:0 20px 0 0;}
+div.post img.alignright{margin:0 0 0 20px;}
+
+/* ページリンク */
+div.pagelink a{font-size:10px;}
+p.pageprev{float: left;}
+p.pagenext{float: right;}
+
+
+
+/* ====================コンタクトフォーム==================== */
+
+/*名前、メール、題名*/
+.wpcf7-form input{
+	width: 98%;
+	max-width: 400px;
+	border:none;
+	line-height:170%;
+	border:#e3e2df solid 1px;
+	} 
+/*テキストエリア*/
+.wpcf7-form textarea{
+	width: 100%;
+	border:none;
+	line-height:170%;
+	border:#e3e2df solid 1px;
+	} 
+/*送信ボタン*/
+.wpcf7-form .wpcf7-submit{
+	margin: 30px 0px 0px 0px;
+	width: 160px;
+	height:40px;
+	border-style: none;
+	background-color: #fff;
+	border:#e3e2df solid 1px;
+	} 
+/*メッセージ*/
+.wpcf7 .wpcf7-response-output {
+    margin: 10px 0 0;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+    .wpcf7 .wpcf7-validation-errors {
+		color:#fff;
+		text-shadow:none;
+        background-color:#747379;
+		border:none;
+    }
+    .wpcf7 .wpcf7-mail-sent-ok {
+        background-color: #fff;
+		border:none;
+    }

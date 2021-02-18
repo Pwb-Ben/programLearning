@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>漫画</title>
+
+    <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/font.css">
+    <link rel="stylesheet" media="screen and (max-width: 768px)" href="/h5/myHomePage/css/smart.css">
+
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="/h5/myHomePage/js/base.js"></script>
+</head>
+<body>
+<header id="header">
+    <h1 class="logo">
+        <a href="https://www.junaida.com/">
+            <img src="https://www.junaida.com/images/logo.gif" width="150" height="50">
+        </a>
+    </h1>
+    <nav>
+        <div id="toggle"><a href="https://www.junaida.com/information#">MENU</a></div>
+        <ul id="navigation">
+            <li><a href="/h5/myHomePage/index.html">简 介</a></li>
+            <li><a href="/h5/myHomePage/story.html">故 事</a></li>
+            <li><a href="/h5/myHomePage/comics.html">漫 画</a></li>
+            <li><a href="/h5/myHomePage/others.html">其 他</a></li>
+            <div class="clear"></div>
+        </ul>
+    </nav>
+</header>
+
+<main role="main">
+    <div id="contents">
+        <div id="masonry">
+
+        </div>
+    </div>
+</main>
+
+<script>
+    $(function(){
+        for(var i=0; i<30; i++){
+            $("#masonry").append('<div class="grid"><a href="https://picsum.photos/200/300?random=' + i + '" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
+            $("#masonry").append('<div class="grid"><a href="https://picsum.photos/500/300?random=' + i + '" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
+        }
+
+        var $container = $('#masonry');
+        $container.imagesLoaded(function(){
+            $container.masonry({
+                itemSelector : '.grid',//整理される要素のclassを指定
+                isFitWidth: true, //親要素の幅に合わせてカラム数を自動調整
+                isAnimated : true //アニメーション設定
+            });
+        });
+        $container.infinitescroll({
+                navSelector : '#page-nav', // ページのナビゲーションを選択
+                nextSelector : '#page-nav a', // 次ページへのリンク
+                itemSelector : '.grid', // 持ってくる要素のclass
+                loading: {
+                    finishedMsg: 'No more images to load.', //次のページがない場合に表示するテキスト
+                    img: '../images/loading.gif' //ローディング画像のパス
+                }
+            },
+            function( newElements ) {
+                var $newElems = $( newElements ).css({ opacity: 0 });
+                $newElems.imagesLoaded(function(){
+                    $newElems.animate({ opacity: 1 });
+                    $container.masonry( 'appended', $newElems, true );
+                });
+            });
+    });
+</script>
+</body>
+</html>

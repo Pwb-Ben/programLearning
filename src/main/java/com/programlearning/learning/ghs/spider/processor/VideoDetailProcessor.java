@@ -6,6 +6,7 @@ import com.programlearning.learning.ghs.common.GhsConstant;
 import com.programlearning.learning.ghs.spider.SpiderProcessor;
 import com.programlearning.learning.ghs.spider.pojo.MagnetNode;
 import com.programlearning.learning.ghs.spider.pojo.VideoDetailNode;
+import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.selector.Selectable;
@@ -29,9 +30,9 @@ public class VideoDetailProcessor extends SpiderProcessor {
                 List<MagnetNode> magnetNodeList = magnetUrlList.stream().map(magnetUrl -> {
                     List<String> l = page.getHtml().xpath("//a[contains(@href,'" + magnetUrl + "')]").xpath("a/text()").all();
                     MagnetNode magnetNode = new MagnetNode();
-                    magnetNode.setName(l.get(0).strip());
-                    magnetNode.setSize(l.get(1).strip());
-                    magnetNode.setPublishDate(l.get(2).strip());
+                    magnetNode.setName(StringUtils.strip(l.get(0)));
+                    magnetNode.setSize(StringUtils.strip(l.get(1)));
+                    magnetNode.setPublishDate(StringUtils.strip(l.get(2)));
                     magnetNode.setUrl(magnetUrl);
                     return magnetNode;
                 }).collect(Collectors.toList());
@@ -58,25 +59,25 @@ public class VideoDetailProcessor extends SpiderProcessor {
                     String headerText = item.$("span.header").xpath("span/text()").get();
                     switch (headerText){
                         case "識別碼:":
-                            videoDetailNode.setUid(item.xpath("span").nodes().get(1).xpath("span/text()").get().strip());
+                            videoDetailNode.setUid(StringUtils.strip(item.xpath("span").nodes().get(1).xpath("span/text()").get()));
                             break;
                         case "發行日期:":
-                            videoDetailNode.setPublishDate(item.xpath("p/text()").get().strip());
+                            videoDetailNode.setPublishDate(StringUtils.strip(item.xpath("p/text()").get()));
                             break;
                         case "長度:":
-                            videoDetailNode.setLength(item.xpath("p/text()").get().strip());
+                            videoDetailNode.setLength(StringUtils.strip(item.xpath("p/text()").get()));
                             break;
                         case "導演:":
-                            videoDetailNode.setDirector(item.xpath("a/text()").get().strip());
+                            videoDetailNode.setDirector(StringUtils.strip(item.xpath("a/text()").get()));
                             break;
                         case "製作商:":
-                            videoDetailNode.setManufacturer(item.xpath("a/text()").get().strip());
+                            videoDetailNode.setManufacturer(StringUtils.strip(item.xpath("a/text()").get()));
                             break;
                         case "發行商:":
-                            videoDetailNode.setPublisher(item.xpath("a/text()").get().strip());
+                            videoDetailNode.setPublisher(StringUtils.strip(item.xpath("a/text()").get()));
                             break;
                         case "系列:":
-                            videoDetailNode.setSeries(item.xpath("a/text()").get().strip());
+                            videoDetailNode.setSeries(StringUtils.strip(item.xpath("a/text()").get()));
                             break;
                         case "演員":
                             int index = list.indexOf(item);

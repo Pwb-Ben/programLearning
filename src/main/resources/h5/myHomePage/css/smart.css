@@ -1,0 +1,141 @@
+@charset "UTF-8";
+/* CSS Document */
+
+@media only screen and (max-width: 768px) {	
+
+/* ■　リセット（スマホで横幅100％時に横スライドがでないように）　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+		
+/* ■　body　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+	
+	body {
+		letter-spacing: 0.1em;
+		}
+
+/* ■　header　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+	
+
+	header {
+		min-width: 100px !important;
+		}
+		
+
+
+	/* スマホ用メニュー*/
+	#toggle{
+		display: block;
+		position: relative;
+		width: 100%;
+		background: #CCC;
+		
+	}
+	#toggle a{
+		display: block;
+		position: relative;
+		padding: 12px 0 10px 0;
+		text-align: center;
+		color:#333;
+	}
+	
+	#navigation{
+		display: none;
+		border-bottom:none;
+	}
+	#navigation li{
+	display:block;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		background:#999;
+		border-bottom: 1px solid #A7A7A7;
+		opacity: 0.9;
+	}
+	  
+	#navigation li a{
+		display:block;
+		padding: 10px 0;
+	}
+	
+	#navigation li a:hover{color:#FFF;}
+	
+	  
+	/* 三本線ボタン */ 
+	 #toggle:before{
+		display: block;
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 10px;
+		width: 20px;
+		height: 20px;
+		margin-top: -10px;
+		background: #fff;
+	  }
+	  #toggle a:before, #toggle a:after{
+		display: block;
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 10px;
+		width: 20px;
+		height: 4px;
+		background: #CCC;
+	  }
+	  #toggle a:before{
+		margin-top: -6px;
+	  }
+	  #toggle a:after{
+		margin-top: 2px;
+	  }
+	
+	
+
+		
+/* ■　ABOUT　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
+.box_left,
+.box_right{
+	letter-spacing: 0em;
+	}
+
+.box_left{
+	width: 100%;
+	padding: 0;
+	}
+	
+.br_none br{display: none;}
+
+dl.data dd{
+	white-space:normal;
+}
+
+.paragraph{
+	display:block;
+	padding:0 0 0 0;
+}
+
+/* ■　gallery　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
+
+	.grid {
+	width:70px;
+	margin:2px;
+	padding:0px;
+	}
+
+
+
+		
+	/* ■　footer　■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/	
+ul#other_link li {
+	font-size: 11px;
+	}
+	footer p.copy{
+		font-size:6px;
+	}
+
+}

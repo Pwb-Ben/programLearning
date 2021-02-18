@@ -19,7 +19,8 @@ public class JavaStream {
 
         //setup downstream chain
         Sink wrappedSink = wrapSink(sink4);
-        assert(wrappedSink == sink0); //now get the first (source) stage
+        //now get the first (source) stage
+        assert(wrappedSink == sink0);
 
         //in one loop, handle elements: 1,2,3,4,5
         spliterator.forEachRemaining(wrappedSink);

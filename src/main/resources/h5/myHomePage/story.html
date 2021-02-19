@@ -8,21 +8,33 @@
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/layout.css">
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/font.css">
     <link rel="stylesheet" media="screen and (max-width: 768px)" href="/h5/myHomePage/css/smart.css">
+    <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/textAnimation.css">
 
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
     <script type="text/javascript" src="/h5/myHomePage/js/base.js"></script>
     <script type="text/javascript" src="/h5/myHomePage/js/story.js"></script>
 </head>
 
 <body>
     <header id="header">
+        <!--<h1 class="logo">-->
+            <!--<a href="https://www.junaida.com/">-->
+                <!--<img src="https://www.junaida.com/images/logo.gif" width="150" height="50">-->
+            <!--</a>-->
+        <!--</h1>-->
         <h1 class="logo">
-            <a href="https://www.junaida.com/">
-                <img src="https://www.junaida.com/images/logo.gif" width="150" height="50">
-            </a>
+            <div id="container">
+                <h1>
+                    <span><i>JOIMO'</i></span>
+                    <span><i>Pic</i></span>
+                    <span><i>Exhibition</i></span>
+                </h1>
+            </div>
         </h1>
+
         <nav>
             <div id="toggle"><a href="#">菜 单</a></div>
             <ul id="navigation">
@@ -41,16 +53,35 @@
         </div>
     </main>
 
+    <footer id="footer" style="top: 0px;">
+        <ul id="other_link">
+            <li><a href="https://twitter.com/junaida_tweet/" target="_blank" rel="noopener noreferrer" class="fa fa-weibo"></a></li>
+            <li><a href="https://instagram.com/junaida_ig/" target="_blank" rel="noopener noreferrer" class="fa fa-instagram"></a></li>
+            <li><a href="https://www.behance.net/junaida559249" target="_blank" rel="noopener noreferrer" class="fa fa-behance"></a></li>
+            <li><a href="https://www.junaida.com/about#contact" class="fa fa-envelope"></a></li>
+            <li><a href="#header" class="scroll fa fa-chevron-up"></a></li>
+            <div class="clear"></div>
+        </ul>
+        <p class="copy">
+            无论是个人还是企业，都严禁所有内容物的二次使用、擅自转载、复制。<br>
+            © JOIMO All Rights Reserved. Unauthorized copying prohibited.
+        </p>
+    </footer>
+
     <script>
         $(function(){
-            for(var i=0; i<30; i++){
-                $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
-                $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
-            }
+            // for(var i=0; i<30; i++){
+            //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
+            //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
+            // }
 
-            // $(".showImage").click(function () {
-            //     window.open("/");
-            // });
+            for(var item of data){
+                if(item.images && item.images.length>0){
+                    for(var imageItem of item.images){
+                        $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="' + imageItem + '"></a></div>');
+                    }
+                }
+            }
 
             var $container = $('#masonry');
             $container.imagesLoaded(function(){

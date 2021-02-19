@@ -52,3 +52,12 @@ $(function(){
     });
 });
 /**　---------- /scrollTop ----------　**/
+
+/**　---------- 获取url参数 ----------　**/
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var urlObj=window.location;
+    var r =urlObj.href.indexOf('#')>-1? urlObj.hash.split("?")[1].match(reg) : urlObj.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+/**　---------- /获取url参数 ----------　**/

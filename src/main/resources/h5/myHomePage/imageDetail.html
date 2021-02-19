@@ -8,10 +8,12 @@
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/layout.css">
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/font.css">
     <link rel="stylesheet" media="screen and (max-width: 768px)" href="/h5/myHomePage/css/smart.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
 
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
     <script type="text/javascript" src="/h5/myHomePage/js/base.js"></script>
 
     <link rel="stylesheet" href="/h5/myHomePage/css/style.css" type="text/css">
@@ -41,14 +43,56 @@
         <div id="contents">
             <div class="post">
                 <h2>Name Of Image</h2>
-                <div class="post_content">
-                    <p>
-                        <img loading="lazy" class="protect alignnone size-full wp-image-2226" src="https://picsum.photos/500/300" alt=""><br>
-                        その変化に 終わりはなく 始まりもなかった <br>
-                        「THE ENDLESS WITH THE BEGINNINGLESS」
+                <div class="post_content" style="text-align:center;">
+                    <p id="imageShowArea">
+                        <!--<img class="protect alignnone size-full wp-image-2226" src="https://picsum.photos/1920/1080?random=1" alt="">-->
+                        <!--<img class="protect alignnone size-full wp-image-2226" src="https://picsum.photos/1920/1080?random=2" alt="">-->
+                        <!--<img class="protect alignnone size-full wp-image-2226" src="https://picsum.photos/1920/1080?random=3" alt="">-->
+                        <!--<img class="protect alignnone size-full wp-image-2226" src="https://picsum.photos/1920/1080?random=4" alt="">-->
+                        <!--<br>这里开始详细介绍 <br>这里是详细的介绍<br>-->
+                        <!--多少单价分手快乐父节点圣诞节开发商的减肥的思考的设计费肯定是雷锋精神使得房价嗯我使得<br>-->
+                        <!--房价SDK浪费随叫随到近代史可圣诞节开始近代史可就觉得放得开副驾驶的看法结算单将分散靠老姐-->
                     </p>
                 </div>
+            </div>
         </div>
     </main>
+
+    <footer id="footer" style="top: 0px;">
+        <ul id="other_link">
+            <li><a href="https://twitter.com/junaida_tweet/" target="_blank" rel="noopener noreferrer" class="fa fa-weibo"></a></li>
+            <li><a href="https://instagram.com/junaida_ig/" target="_blank" rel="noopener noreferrer" class="fa fa-qq"></a></li>
+            <li><a href="https://www.behance.net/junaida559249" target="_blank" rel="noopener noreferrer" class="fa fa-weixin"></a></li>
+            <div class="clear"></div>
+        </ul>
+        <p class="copy">
+            无论是个人还是企业，都严禁所有内容物的二次使用、擅自转载、复制。<br>
+            © JOIMO All Rights Reserved. Unauthorized copying prohibited.
+        </p>
+    </footer>
+
+    <script>
+        $(function () {
+            var imageInfo = JSON.parse(Base64.decode(getQueryString('imageInfo')));
+            console.log(imageInfo);
+
+            if(imageInfo){
+                if (imageInfo.images && imageInfo.images.length>0) {
+                    for(var item of imageInfo.images){
+                        $("#imageShowArea").append('<img style="width: auto;height: auto;text-align: center;" src="'+item+'" alt=""><br>');
+                    }
+                }
+
+                if (imageInfo.title) {
+                    $("title").html(imageInfo.title);
+                    $("h2").html(imageInfo.title);
+                }
+
+                if (imageInfo.content) {
+                    $("#imageShowArea").append(imageInfo.content);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

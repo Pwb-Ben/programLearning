@@ -1,4 +1,4 @@
-var story_data = [
+var comics_data = [
     {
         images: ["https://picsum.photos/200/300?random=1","https://picsum.photos/200/300?random=2"],
         title: '点击第三方',

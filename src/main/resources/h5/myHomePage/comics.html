@@ -2,27 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>漫画</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIOMO--漫画</title>
 
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/layout.css">
     <link rel="stylesheet" type="text/css" href="/h5/myHomePage/css/font.css">
     <link rel="stylesheet" media="screen and (max-width: 768px)" href="/h5/myHomePage/css/smart.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
 
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
     <script type="text/javascript" src="/h5/myHomePage/js/base.js"></script>
+    <script type="text/javascript" src="/h5/myHomePage/js/comics.js"></script>
 </head>
+
 <body>
 <header id="header">
     <h1 class="logo">
-        <a href="https://www.junaida.com/">
-            <img src="https://www.junaida.com/images/logo.gif" width="150" height="50">
+        <a href="#">
+            <!--<img src="https://www.junaida.com/images/logo.gif" width="150" height="50">-->
+            <h1 style="font-size: 1em;font-family: 'Montserrat', sans-serif;">JIOMO' Pic Exhibition</h1>
         </a>
     </h1>
+
     <nav>
-        <div id="toggle"><a href="https://www.junaida.com/information#">MENU</a></div>
+        <div id="toggle"><a href="#">菜 单</a></div>
         <ul id="navigation">
             <li><a href="/h5/myHomePage/index.html">简 介</a></li>
             <li><a href="/h5/myHomePage/story.html">故 事</a></li>
@@ -35,43 +42,64 @@
 
 <main role="main">
     <div id="contents">
-        <div id="masonry">
-
-        </div>
+        <div id="masonry"></div>
     </div>
 </main>
 
+<footer id="footer" style="top: 0px;">
+    <ul id="other_link">
+        <li><a href="https://twitter.com/junaida_tweet/" target="_blank" rel="noopener noreferrer" class="fa fa-weibo"></a></li>
+        <li><a href="https://instagram.com/junaida_ig/" target="_blank" rel="noopener noreferrer" class="fa fa-qq"></a></li>
+        <li><a href="https://www.behance.net/junaida559249" target="_blank" rel="noopener noreferrer" class="fa fa-weixin"></a></li>
+        <div class="clear"></div>
+    </ul>
+    <p class="copy">
+        无论是个人还是企业都严禁将内容二次使用、擅自转载、复制。<br>
+        © JIOMO All Rights Reserved. Unauthorized copying prohibited.
+    </p>
+</footer>
+
 <script>
     $(function(){
-        for(var i=0; i<30; i++){
-            $("#masonry").append('<div class="grid"><a href="https://picsum.photos/200/300?random=' + i + '" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
-            $("#masonry").append('<div class="grid"><a href="https://picsum.photos/500/300?random=' + i + '" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
+        // for(var i=0; i<30; i++){
+        //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
+        //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
+        // }
+
+        for(var item of comics_data){
+            if(item.images && item.images.length>0){
+                for(var imageItem of item.images){
+                    $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="' + imageItem + '"></a></div>');
+                }
+            }
         }
 
         var $container = $('#masonry');
         $container.imagesLoaded(function(){
             $container.masonry({
-                itemSelector : '.grid',//整理される要素のclassを指定
-                isFitWidth: true, //親要素の幅に合わせてカラム数を自動調整
-                isAnimated : true //アニメーション設定
+                itemSelector : '.grid',
+                isFitWidth: true,
+                isAnimated : true
             });
         });
-        $container.infinitescroll({
-                navSelector : '#page-nav', // ページのナビゲーションを選択
-                nextSelector : '#page-nav a', // 次ページへのリンク
-                itemSelector : '.grid', // 持ってくる要素のclass
-                loading: {
-                    finishedMsg: 'No more images to load.', //次のページがない場合に表示するテキスト
-                    img: '../images/loading.gif' //ローディング画像のパス
-                }
-            },
-            function( newElements ) {
-                var $newElems = $( newElements ).css({ opacity: 0 });
-                $newElems.imagesLoaded(function(){
-                    $newElems.animate({ opacity: 1 });
-                    $container.masonry( 'appended', $newElems, true );
-                });
-            });
+        // $container.infinitescroll({
+        //         navSelector : '#page-nav',
+        //         nextSelector : '#page-nav a',
+        //         itemSelector : '.grid',
+        //         loading: {
+        //             finishedMsg: 'No more images to load.',
+        //             img: '../images/loading.gif'
+        //         }
+        //     },
+        //     function( newElements ) {
+        //         var $newElems = $( newElements ).css({ opacity: 0 });
+        //         $newElems.imagesLoaded(function(){
+        //             $newElems.animate({ opacity: 1 });
+        //             $container.masonry( 'appended', $newElems, true );
+        //         });
+        //     });
+
+
     });
 </script>
 </body>

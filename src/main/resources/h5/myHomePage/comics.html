@@ -20,87 +20,88 @@
 </head>
 
 <body>
-<header id="header">
-    <h1 class="logo">
-        <a href="#">
-            <!--<img src="https://www.junaida.com/images/logo.gif" width="150" height="50">-->
-            <h1 style="font-size: 1em;font-family: 'Montserrat', sans-serif;">JIOMO' Pic Exhibition</h1>
-        </a>
-    </h1>
+    <header id="header">
+        <h1 class="logo">
+            <a href="#">
+                <!--<img src="https://www.junaida.com/images/logo.gif" width="150" height="50">-->
+                <h1 style="font-size: 1em;font-family: 'Montserrat', sans-serif;">JIOMO' Pic Exhibition</h1>
+            </a>
+        </h1>
 
-    <nav>
-        <div id="toggle"><a href="#">菜 单</a></div>
-        <ul id="navigation">
-            <li><a href="/h5/myHomePage/index.html">简 介</a></li>
-            <li><a href="/h5/myHomePage/story.html">故 事</a></li>
-            <li><a href="/h5/myHomePage/comics.html">漫 画</a></li>
-            <li><a href="/h5/myHomePage/others.html">其 他</a></li>
+        <nav>
+            <div id="toggle"><a href="#">菜 单</a></div>
+            <ul id="navigation">
+                <li><a href="/h5/myHomePage/index.html">简 介</a></li>
+                <li><a href="/h5/myHomePage/story.html">故 事</a></li>
+                <li><a href="/h5/myHomePage/comics.html">漫 画</a></li>
+                <li><a href="/h5/myHomePage/others.html">其 他</a></li>
+                <div class="clear"></div>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <div id="contents">
+            <div id="masonry"></div>
+        </div>
+    </main>
+
+    <footer id="footer" style="top: 0px;">
+        <ul id="other_link">
+            <li><a href="https://twitter.com/junaida_tweet/" target="_blank" rel="noopener noreferrer" class="fa fa-weibo"></a></li>
+            <li><a href="https://instagram.com/junaida_ig/" target="_blank" rel="noopener noreferrer" class="fa fa-qq"></a></li>
+            <li><a href="https://www.behance.net/junaida559249" target="_blank" rel="noopener noreferrer" class="fa fa-weixin"></a></li>
+            <li><a href="/h5/myHomePage/comics.html#header" class="scroll fa fa-chevron-up"></a></li>
             <div class="clear"></div>
         </ul>
-    </nav>
-</header>
+        <p class="copy">
+            无论是个人还是企业都严禁将内容二次使用、擅自转载、复制。<br>
+            © JIOMO All Rights Reserved. Unauthorized copying prohibited.
+        </p>
+    </footer>
 
-<main role="main">
-    <div id="contents">
-        <div id="masonry"></div>
-    </div>
-</main>
+    <script>
+        $(function(){
+            // for(var i=0; i<30; i++){
+            //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
+            //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
+            // }
 
-<footer id="footer" style="top: 0px;">
-    <ul id="other_link">
-        <li><a href="https://twitter.com/junaida_tweet/" target="_blank" rel="noopener noreferrer" class="fa fa-weibo"></a></li>
-        <li><a href="https://instagram.com/junaida_ig/" target="_blank" rel="noopener noreferrer" class="fa fa-qq"></a></li>
-        <li><a href="https://www.behance.net/junaida559249" target="_blank" rel="noopener noreferrer" class="fa fa-weixin"></a></li>
-        <div class="clear"></div>
-    </ul>
-    <p class="copy">
-        无论是个人还是企业都严禁将内容二次使用、擅自转载、复制。<br>
-        © JIOMO All Rights Reserved. Unauthorized copying prohibited.
-    </p>
-</footer>
-
-<script>
-    $(function(){
-        // for(var i=0; i<30; i++){
-        //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/200/300?random=' + i + '"></a></div>');
-        //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
-        // }
-
-        for(var item of comics_data){
-            if(item.images && item.images.length>0){
-                for(var imageItem of item.images){
-                    $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="' + imageItem + '"></a></div>');
+            for(var item of comics_data){
+                if(item.images && item.images.length>0){
+                    for(var imageItem of item.images){
+                        $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="' + imageItem + '"></a></div>');
+                    }
                 }
             }
-        }
 
-        var $container = $('#masonry');
-        $container.imagesLoaded(function(){
-            $container.masonry({
-                itemSelector : '.grid',
-                isFitWidth: true,
-                isAnimated : true
+            var $container = $('#masonry');
+            $container.imagesLoaded(function(){
+                $container.masonry({
+                    itemSelector : '.grid',
+                    isFitWidth: true,
+                    isAnimated : true
+                });
             });
+            // $container.infinitescroll({
+            //         navSelector : '#page-nav',
+            //         nextSelector : '#page-nav a',
+            //         itemSelector : '.grid',
+            //         loading: {
+            //             finishedMsg: 'No more images to load.',
+            //             img: '../images/loading.gif'
+            //         }
+            //     },
+            //     function( newElements ) {
+            //         var $newElems = $( newElements ).css({ opacity: 0 });
+            //         $newElems.imagesLoaded(function(){
+            //             $newElems.animate({ opacity: 1 });
+            //             $container.masonry( 'appended', $newElems, true );
+            //         });
+            //     });
+
+
         });
-        // $container.infinitescroll({
-        //         navSelector : '#page-nav',
-        //         nextSelector : '#page-nav a',
-        //         itemSelector : '.grid',
-        //         loading: {
-        //             finishedMsg: 'No more images to load.',
-        //             img: '../images/loading.gif'
-        //         }
-        //     },
-        //     function( newElements ) {
-        //         var $newElems = $( newElements ).css({ opacity: 0 });
-        //         $newElems.imagesLoaded(function(){
-        //             $newElems.animate({ opacity: 1 });
-        //             $container.masonry( 'appended', $newElems, true );
-        //         });
-        //     });
-
-
-    });
-</script>
+    </script>
 </body>
 </html>

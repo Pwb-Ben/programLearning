@@ -65,8 +65,33 @@ var story_data = [
         content: '水电费第三方第三方士大夫水电费第三方第三方第三方士大夫但是'
     },
     {
-        images: ["https://picsum.photos/500/300?random=13","https://picsum.photos/500/300?random=14"],
+        images: ["http://localhost:8000/h5/myHomePage/pic/20210219145337.jpg"],
         title: '未亡人',
         content: '水电费水电费水电费第三位温热认为二位沃尔沃二翁热沃尔沃太容易 意图与uuuu '
+    },
+    {
+        images: ["http://localhost:8000/h5/myHomePage/pic/20210219145352.jpg"],
+        title: '第三方文',
+        content: '水电费第三方第三方士大夫水电费第三方第三方第三方士大夫但是'
+    },
+    {
+        images: ["http://localhost:8000/h5/myHomePage/pic/20210219145447.jpg"],
+        title: '第三方文',
+        content: '水电费第三方第三方士大夫水电费第三方第三方第三方士大夫但是'
+    },
+    {
+        images: ["http://localhost:8000/h5/myHomePage/pic/20210219145450.jpg"],
+        title: '第三方文',
+        content: '水电费第三方第三方士大夫水电费第三方第三方第三方士大夫但是'
+    },
+    {
+        images: ["http://localhost:8000/h5/myHomePage/pic/20210219145455.jpg"],
+        title: '第三方文',
+        content: '水电费第三方第三方士大夫水电费第三方第三方第三方士大夫但是'
+    },
+    {
+        images: ["http://localhost:8000/h5/myHomePage/pic/20210219145459.jpg"],
+        title: '第三方文',
+        content: '水电费第三方第三方士大夫水电费第三方第三方第三方士大夫但是'
     }
 ];

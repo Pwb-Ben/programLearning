@@ -24,7 +24,7 @@
         <h1 class="logo">
             <a href="#">
                 <!--<img src="https://www.junaida.com/images/logo.gif" width="150" height="50">-->
-                <h1 style="font-size: 1em;font-family: 'Montserrat', sans-serif;">JIOMO' Pic Exhibition</h1>
+                <h1 style="font-size: 1em;font-family: 'Montserrat', sans-serif;">JIOMO's Pic Exhibition</h1>
             </a>
         </h1>
 
@@ -67,10 +67,25 @@
             //     $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html" rel="lightbox[gallery]"><img src="https://picsum.photos/500/300?random=' + i + '"></a></div>');
             // }
 
+            // var data = [];
+            // for(var j=1;j<245;j++){
+            //     data.push({
+            //         images: ["http://localhost:8000/h5/myHomePage/pic/" + j + ".jpg"],
+            //         title: '这是我的标题',
+            //         content: '这是我的介绍，我的介绍有这么长~~~~~~~~~~~~~~~~'
+            //     })
+            // }
+            // console.log(JSON.stringify(data));
+
+            var i = 1;
             for(var item of story_data){
                 if(item.images && item.images.length>0){
                     for(var imageItem of item.images){
-                        $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="' + imageItem + '"></a></div>');
+                        $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="http://localhost:8000/h5/myHomePage/pic/' + i + '.jpg"></a></div>');
+                        i++;
+                        if (i>244){
+                            break;
+                        }
                     }
                 }
             }

@@ -195,6 +195,7 @@
                     <compilerArguments>
                         <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
                     </compilerArguments>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
 
@@ -239,7 +240,7 @@
                 <!--</executions>-->
                 <configuration>
                     <!--指定生成的镜像名-->
-                    <imageName>${project.artifactId}:${project.version}</imageName>
+                    <imageName>192.168.0.106:5000/${project.artifactId}:${project.version}</imageName>
                     <!--指定标签-->
                     <!--<imageTags>-->
                         <!--<imageTag>${project.version}</imageTag>-->
@@ -255,7 +256,7 @@
                     <!--容器启动以后要执行命令-->
                     <entryPoint>["java", "‐jar", "${project.build.finalName}.jar"]</entryPoint>
                     <!--指定远程 docker api地址-->
-                    <dockerHost>http://192.168.83.130:2375</dockerHost>
+                    <dockerHost>http://192.168.0.106:2375</dockerHost>
                     <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
                     <resources>
                         <resource>

@@ -123,9 +123,9 @@ Configuration:
     Logger:
       #复数加上-（这里我设置的是包的根路径的包名）
       name: com.programlearning.learning.log
-      level: INFO
+      level: OFF
     Root:
-      level: INFO
+      level: OFF
       includeLocation: true
       AppenderRef:
         - ref: RollingFileInfo

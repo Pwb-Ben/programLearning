@@ -33,91 +33,91 @@ Configuration:
         Pattern: ${log_pattern}
         charset: UTF-8
     # 输出到文件
-    RollingFile:
-      -
-        # 日志模块名称
-        name: RollingFileInfo
-        # 日志文件名称
-        fileName: ${log_path}/${log_name}-info.log
-        # 日志历史文件名称
-        filePattern: ${log_path}/${log_name}-info.%d{yyyy-MM-dd-HH}.log
-        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-        thresholdFilter:
-          level: info
-          onMatch: ACCEPT
-          onMismatch: DENY
-        # 日志格式
-        PatternLayout:
-          Pattern: ${log_pattern}
-          charset: UTF-8
-        Policies:
-          # 每一天产生一个日志文件
-          TimeBasedTriggeringPolicy:
-            modulate: true
-            interval: 1
-          # 日志最多大能超过 500NB
-          SizeBasedTriggeringPolicy:
-            size: 500MB
-        # 文件夹下指保留 10个文件
-        DefaultRolloverStrategy:
-          max: 10
-      -
-        # 日志模块名称
-        name: RollingFileWarn
-        # 日志文件名称
-        fileName: ${log_path}/${log_name}-warn.log
-        # 日志历史文件名称
-        filePattern: ${log_path}/${log_name}-warn.%d{yyyy-MM-dd-HH}.log
-        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-        thresholdFilter:
-          level: warn
-          onMatch: ACCEPT
-          onMismatch: DENY
-        # 日志格式
-        PatternLayout:
-          Pattern: ${log_pattern}
-          charset: UTF-8
-        Policies:
-          # 每一天产生一个日志文件
-          TimeBasedTriggeringPolicy:
-            modulate: true
-            interval: 1
-          # 日志最多大能超过 500NB
-          SizeBasedTriggeringPolicy:
-            size: 500MB
-        # 文件夹下指保留 10个文件
-        DefaultRolloverStrategy:
-          max: 10
-      -
-        # 日志模块名称
-        name: RollingFileError
-        # 日志文件名称
-        fileName: ${log_path}/${log_name}-error.log
-        # 日志历史文件名称
-        filePattern: ${log_path}/${log_name}-error.%d{yyyy-MM-dd-HH}.log
-        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-        thresholdFilter:
-          level: error
-          onMatch: ACCEPT
-          onMismatch: DENY
-        # 日志格式
-        PatternLayout:
-          Pattern: ${log_pattern}
-          charset: UTF-8
-        Policies:
-          # 每一天产生一个日志文件
-          TimeBasedTriggeringPolicy:
-            modulate: true
-            interval: 1
-          # 日志最多大能超过 500NB
-          SizeBasedTriggeringPolicy:
-            size: 500MB
-        # 文件夹下指保留 10个文件
-        DefaultRolloverStrategy:
-          max: 10
+#    RollingFile:
+#      -
+#        # 日志模块名称
+#        name: RollingFileInfo
+#        # 日志文件名称
+#        fileName: ${log_path}/${log_name}-info.log
+#        # 日志历史文件名称
+#        filePattern: ${log_path}/${log_name}-info.%d{yyyy-MM-dd-HH}.log
+#        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+#        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+#        thresholdFilter:
+#          level: info
+#          onMatch: ACCEPT
+#          onMismatch: DENY
+#        # 日志格式
+#        PatternLayout:
+#          Pattern: ${log_pattern}
+#          charset: UTF-8
+#        Policies:
+#          # 每一天产生一个日志文件
+#          TimeBasedTriggeringPolicy:
+#            modulate: true
+#            interval: 1
+#          # 日志最多大能超过 500NB
+#          SizeBasedTriggeringPolicy:
+#            size: 500MB
+#        # 文件夹下指保留 10个文件
+#        DefaultRolloverStrategy:
+#          max: 10
+#      -
+#        # 日志模块名称
+#        name: RollingFileWarn
+#        # 日志文件名称
+#        fileName: ${log_path}/${log_name}-warn.log
+#        # 日志历史文件名称
+#        filePattern: ${log_path}/${log_name}-warn.%d{yyyy-MM-dd-HH}.log
+#        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+#        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+#        thresholdFilter:
+#          level: warn
+#          onMatch: ACCEPT
+#          onMismatch: DENY
+#        # 日志格式
+#        PatternLayout:
+#          Pattern: ${log_pattern}
+#          charset: UTF-8
+#        Policies:
+#          # 每一天产生一个日志文件
+#          TimeBasedTriggeringPolicy:
+#            modulate: true
+#            interval: 1
+#          # 日志最多大能超过 500NB
+#          SizeBasedTriggeringPolicy:
+#            size: 500MB
+#        # 文件夹下指保留 10个文件
+#        DefaultRolloverStrategy:
+#          max: 10
+#      -
+#        # 日志模块名称
+#        name: RollingFileError
+#        # 日志文件名称
+#        fileName: ${log_path}/${log_name}-error.log
+#        # 日志历史文件名称
+#        filePattern: ${log_path}/${log_name}-error.%d{yyyy-MM-dd-HH}.log
+#        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+#        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+#        thresholdFilter:
+#          level: error
+#          onMatch: ACCEPT
+#          onMismatch: DENY
+#        # 日志格式
+#        PatternLayout:
+#          Pattern: ${log_pattern}
+#          charset: UTF-8
+#        Policies:
+#          # 每一天产生一个日志文件
+#          TimeBasedTriggeringPolicy:
+#            modulate: true
+#            interval: 1
+#          # 日志最多大能超过 500NB
+#          SizeBasedTriggeringPolicy:
+#            size: 500MB
+#        # 文件夹下指保留 10个文件
+#        DefaultRolloverStrategy:
+#          max: 10
   Loggers:
     #单独设置某些包的输出级别
     Logger:
@@ -128,9 +128,9 @@ Configuration:
       level: OFF
       includeLocation: true
       AppenderRef:
-        - ref: RollingFileInfo
-        - ref: RollingFileWarn
-        - ref: RollingFileError
+#        - ref: RollingFileInfo
+#        - ref: RollingFileWarn
+#        - ref: RollingFileError
         - ref: CONSOLE
 
         #%d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间

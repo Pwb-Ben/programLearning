@@ -1,12 +1,15 @@
 package com.programlearning.learning.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +19,28 @@ public class Test {
     @GetMapping("hello")
     public String test(){
         return "hello world";
+    }
+
+    @PostMapping("/api/auth/login")
+    public ResponseEntity<Object> login(){
+        Map<String, String> map = new HashMap<>();
+        map.put("token","Bearer 123456");
+        return ResponseEntity.ok(map);
+    }
+
+    @PostMapping("/api/auth/logout")
+    public ResponseEntity<Object> logout(){
+        return ResponseEntity.ok("logout success");
+    }
+
+    @GetMapping("/api/auth/user")
+    public ResponseEntity<Object> user(){
+        Map<String, Map<String, String>> map = new HashMap<>();
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("name","Ben");
+        map2.put("sex","man");
+        map.put("user", map2);
+        return ResponseEntity.ok(map);
     }
 
     public static void main(String[] args) {
@@ -55,9 +80,10 @@ public class Test {
         }
     }
 
+    private static Pattern pattern = Pattern.compile("(\\d+ms)(\\s+)(TTL=\\d+)", Pattern.CASE_INSENSITIVE);
     //若line含有=18ms TTL=16字样,说明已经ping通,返回1,否則返回0.
-    private static int getCheckResult(String line) {  // System.out.println("控制台输出的结果为:"+line);
-        Pattern pattern = Pattern.compile("(\\d+ms)(\\s+)(TTL=\\d+)", Pattern.CASE_INSENSITIVE);
+    private static int getCheckResult(String line) {
+        // System.out.println("控制台输出的结果为:"+line);
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
             return 1;

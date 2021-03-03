@@ -3,6 +3,7 @@ package com.programlearning.learning.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
@@ -16,9 +17,30 @@ import java.util.regex.Pattern;
 @RestController
 public class Test {
 
-    @GetMapping("hello")
-    public String test(){
-        return "hello world";
+    @GetMapping("/api/hello")
+    public ResponseEntity<Object> getHelloWorld(String param){
+        System.out.println("param------------->"+param);
+        switch (param){
+            case "1":
+                return ResponseEntity.ok("hello world");
+            case "2":
+                return ResponseEntity.badRequest().body("hello world bad request");
+            default:
+                return ResponseEntity.ok("hello world");
+        }
+    }
+
+    @PostMapping("/api/hello")
+    public ResponseEntity<Object> postHelloWorld(@RequestBody TestVo data){
+        System.out.println("data------------->"+data.getParam());
+        switch (data.getParam()){
+            case "1":
+                return ResponseEntity.ok("hello world");
+            case "2":
+                return ResponseEntity.badRequest().body("hello world bad request");
+            default:
+                return ResponseEntity.ok("hello world");
+        }
     }
 
     @PostMapping("/api/auth/login")
@@ -35,11 +57,12 @@ public class Test {
 
     @GetMapping("/api/auth/user")
     public ResponseEntity<Object> user(){
-        Map<String, Map<String, String>> map = new HashMap<>();
-        Map<String, String> map2 = new HashMap<>();
+        Map<String, Map<String, String>> map = new HashMap<>(1);
+        Map<String, String> map2 = new HashMap<>(2);
         map2.put("name","Ben");
         map2.put("sex","man");
         map.put("user", map2);
+        ResponseEntity.badRequest();
         return ResponseEntity.ok(map);
     }
 

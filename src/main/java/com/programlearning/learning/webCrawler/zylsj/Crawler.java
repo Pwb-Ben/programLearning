@@ -1,5 +1,6 @@
 package com.programlearning.learning.webCrawler.zylsj;
 
+import cn.hutool.core.io.file.FileWriter;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -7,9 +8,13 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Crawler implements PageProcessor {
+
+    private static final String URL = "https://www.zylsj.com/";
 
     private List<String> requests;
 
@@ -26,7 +31,12 @@ public class Crawler implements PageProcessor {
 
             List<String> titleList = selectableList.$("a.xst").xpath("a/text()").all();
             List<String> hrefList = selectableList.$("a.xst").xpath("a/@href").all();
-//            page.putField("list",list);
+
+            Map<String, String> map = new HashMap<>(20);
+            for(int i=0, len=titleList.size(); i<len; i++){
+                map.put(hrefList.get(i), titleList.get(i));
+            }
+            page.putField("map", map);
         }
     }
 
@@ -37,14 +47,22 @@ public class Crawler implements PageProcessor {
 
     public static void main(String[] args) {
         List<String> requests = new ArrayList<>(81);
-        for (int i = 2; i<=2; i++){
+        for (int i = 2; i<=81; i++){
             requests.add("https://www.zylsj.com/forum-42-" + i + ".html");
         }
         Crawler crawler = new Crawler(requests);
+        PipeLine pipeLine = new PipeLine();
         Spider.create(crawler)
                 .thread(Runtime.getRuntime().availableProcessors())
                 .addUrl("https://www.zylsj.com/forum-42-1.html")
-                .addPipeline(new PipeLine())
+                .addPipeline(pipeLine)
                 .run();
+        Map<String, String> dataMap = pipeLine.getDataMap();
+        List<String> list = new ArrayList<>(1620);
+        for (Map.Entry<String, String> entry : dataMap.entrySet()){
+            list.add(URL + entry.getKey() + "  " + entry.getValue());
+        }
+        FileWriter writer = new FileWriter("C:\\Users\\Administrator\\Desktop\\data.txt");
+        writer.appendLines(list);
     }
 }

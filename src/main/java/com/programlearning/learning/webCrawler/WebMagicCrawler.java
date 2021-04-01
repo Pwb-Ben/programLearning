@@ -53,7 +53,8 @@ public class WebMagicCrawler implements PageProcessor {
         File file = new File(fileName);
         InputStream in = null;
         StringBuffer sb = new StringBuffer();
-        if (file.isFile() && file.exists()) {   //判断文件是否存在
+        //判断文件是否存在
+        if (file.isFile() && file.exists()) {
             // 一次读多个字节
             byte[] tempBytes = new byte[1024];
             int byteRead;

@@ -53,7 +53,8 @@ public class myPipeLine implements Pipeline {
                 }
             }
             fileWriter.write(context.toString());
-            context = null; //help gc
+            //help gc
+            context = null;
         } catch (IOException e) {
             e.printStackTrace();
         }finally {

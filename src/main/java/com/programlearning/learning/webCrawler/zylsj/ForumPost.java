@@ -72,8 +72,8 @@ public class ForumPost implements AfterExtractor {
                 .run();
         // 顺序收集每页的帖子数据
         List<String> dataList = new LinkedList<>();
-        for(Integer key : dataMap.keySet()){
-            dataList.addAll(dataMap.get(key));
+        for(Map.Entry<Integer, List<String>> entry : dataMap.entrySet()){
+            dataList.addAll(entry.getValue());
         }
         // 写到文件
         FileWriter writer = new FileWriter("C:\\Users\\pwbco\\Desktop\\data.txt");

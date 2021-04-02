@@ -9,20 +9,15 @@ public class ArticleInfo implements Serializable {
 
     private static final long serialVersionUID = -1554853061240658449L;
 
-    @JsonProperty("article_id")
     private String articleId;
 
-    @JsonProperty("title")
     private String title;
 
-    @JsonProperty("brief_content")
     private String briefContent;
 
-    @JsonProperty("category_id")
-    private String categoryId;
+    private String categoryName;
 
-    @JsonProperty("tag_ids")
-    private List<String> tagIds;
+    private List<String> tags;
 
     public String getArticleId() {
         return articleId;
@@ -48,20 +43,20 @@ public class ArticleInfo implements Serializable {
         this.briefContent = briefContent;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public List<String> getTagIds() {
-        return tagIds;
+    public List<String> getTags() {
+        return tags;
     }
 
-    public void setTagIds(List<String> tagIds) {
-        this.tagIds = tagIds;
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     @Override

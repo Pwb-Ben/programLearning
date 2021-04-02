@@ -113,6 +113,12 @@
             <artifactId>hutool-all</artifactId>
             <version>5.4.3</version>
         </dependency>
+        <!--操作office软件工具包，推荐引入poi-ooxml，这个包会自动关联引入poi包，且可以很好的支持Office2007+的文档格式-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.0.0</version>
+        </dependency>
 
         <!--DL4J神经网络工具包-->
         <dependency>

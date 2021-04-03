@@ -1,6 +1,5 @@
 package com.programlearning.learning.webCrawler.juejin;
 
-import com.alibaba.fastjson.JSONObject;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -21,7 +20,7 @@ public class BackEndPartProcessor implements PageProcessor {
     public void process(Page page) {
         String responseBody = page.getRawText();
         boolean hasMore = Boolean.parseBoolean(new JsonPathSelector("$.has_more").select(responseBody));
-        if (hasMore /*&& pageNum.incrementAndGet() < StartUp.MAX_PAGE_NUM*/) {
+        if (hasMore && pageNum.incrementAndGet() < StartUp.MAX_PAGE_NUM) {
             String cursor = new JsonPathSelector("$.cursor").select(responseBody);
             String requestBody = "{\"id_type\":2,\"sort_type\":200,\"cate_id\":\"6809637769959178254\",\"cursor\":\"" + cursor + "\",\"limit\":20}";
             Request request = new Request(StartUp.REQUEST_URL);

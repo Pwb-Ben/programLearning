@@ -67,7 +67,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        System.out.println(ping("cn2.miaonode.cf", 10, 3000));
+        System.out.println(ping("baidu.com", 10, 3000));
     }
 
     public static boolean ping(String ipAddress, int pingTimes, int timeOut) {

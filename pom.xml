@@ -158,6 +158,14 @@
             <version>16.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+        <!--查看Java 对象布局、大小工具-->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.10</version>
+        </dependency>
+
         <dependency>
             <groupId>com.sun.tools.btrace</groupId>
             <artifactId>btrace-agent</artifactId>

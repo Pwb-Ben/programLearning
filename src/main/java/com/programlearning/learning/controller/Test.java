@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,8 @@ import java.util.regex.Pattern;
 public class Test {
 
     @GetMapping("/api/hello")
-    public ResponseEntity<Object> getHelloWorld(String param){
+    public ResponseEntity<Object> getHelloWorld(HttpServletRequest request, String param){
+        System.out.println("request------------->"+request.getQueryString());
         System.out.println("param------------->"+param);
         switch (param){
             case "1":

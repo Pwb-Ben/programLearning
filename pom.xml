@@ -132,6 +132,13 @@
             <version>1.0.0-beta7</version>
         </dependency>
 
+        <!-- Tesseract 图片文字识别工具 -->
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+
         <!-- Used in the feedforward/classification/MLP* and feedforward/regression/RegressionMathFunctions example -->
         <dependency>
             <groupId>jfree</groupId>

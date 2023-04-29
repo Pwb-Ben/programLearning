@@ -81,7 +81,13 @@
             for(var item of story_data){
                 if(item.images && item.images.length>0){
                     for(var imageItem of item.images){
-                        $("#masonry").append('<div class="grid"><a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo='+Base64.encode(JSON.stringify(item))+'"><img src="http://localhost:8000/h5/myHomePage/pic/' + i + '.jpg"></a></div>');
+                        $("#masonry").append(
+                            '<div class="grid">'
+                            + '<a target = "blank" href="/h5/myHomePage/imageDetail.html?imageInfo=' + Base64.encode(JSON.stringify(item)) + '">'
+                            + '<img src="http://localhost:8000/h5/myHomePage/pic/' + i + '.jpg">'
+                            + '</a>'
+                            + '</div>'
+                        );
                         i++;
                         if (i>244){
                             break;

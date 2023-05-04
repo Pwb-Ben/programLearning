@@ -37,7 +37,7 @@ public class AdvancedSorting {
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
             return;
         }
-        int start=low,end=high,pivot;
+        int start = low, end = high, pivot;
         if(start < end) {
             //设置枢轴
             pivot=a[start];
@@ -141,13 +141,13 @@ public class AdvancedSorting {
         // 为了更直观的描述，空出数组的第一位，这样我们就可以通过 i * 2 和 i * 2 + 1 来求得左孩子节点和右孩子节点
         System.arraycopy(nums, 0, a, 1, nums.length);
 
-        //下沉建堆
-        for (int i = len/2; i >= 1; i--) {
+        // 下沉建堆
+        for (int i = len >> 1; i >= 1; i--) {
             sink(a, i, len);
         }
 
+        // 排序
         int k = len;
-        //排序
         while (k > 1) {
             swap(a, 1, k--);
             sink(a, 1, k);
@@ -157,8 +157,8 @@ public class AdvancedSorting {
     }
     private static void sink(int[] nums, int k,int end) {
         //下沉
-        while ((k + k) <= end) {
-            int j = k + k;
+        while (k << 2 <= end) {
+            int j = k << 2;
             //找出子节点中最大或最小的那个
             if (j + 1 <= end && nums[j + 1] > nums[j]) {
                 j++;

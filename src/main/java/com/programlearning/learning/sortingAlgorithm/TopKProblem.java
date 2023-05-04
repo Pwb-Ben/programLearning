@@ -19,7 +19,7 @@ import java.util.Queue;
  * 再到了JDK8， 对大集合增加了Arrays.parallelSort()函数，使用fork-Join框架，充分利用多核，对大的集合进行切分然后再归并排序，
  * 而在小的连续片段里，依然使用TimSort与DualPivotQuickSort。
  */
-public class TopKPromblem {
+public class TopKProblem {
 
     /**
      *
@@ -52,8 +52,7 @@ public class TopKPromblem {
             // 最小堆内数字个数少于k，一直添加到k个
             if (queue.size() < k) {
                 queue.add(i);
-            }
-            else {
+            } else {
                 // 若堆内最小的数字小于数组中的数字，则将数字出堆，并放入这个大的数
                 p = queue.peek();
                 if (p != null && i < queue.peek()) {
@@ -87,7 +86,7 @@ public class TopKPromblem {
      * 如果它的下标小于k，那么中位数应该位于它的右边，我们可以接着在它的右边部分的数组中查找。
      * 这是一个典型的递归过程
      */
-    static ArrayList<Integer> QuickSortSolution(int[] input, int k){
+    static ArrayList<Integer> QuickSortSolution(int[] input, int k) {
         // 由于本题需要返回ArrayList<Integer>，所以新建之
         ArrayList<Integer> list = new ArrayList<>();
         // 若输入数组长度小于k。直接返回数空的ArrayList
@@ -101,8 +100,8 @@ public class TopKPromblem {
         return list;
     }
 
-    static void findKMin(int[] a, int start, int end, int k){
-        if(start < end){
+    static void findKMin(int[] a, int start, int end, int k) {
+        if(start < end) {
             int pos = partition(a, start, end);
             if(pos == k-1){
                 return;
@@ -146,7 +145,7 @@ public class TopKPromblem {
 //            System.out.print(i+" ");
 //        }
 //        System.out.println(" ");
-        ArrayList<Integer> list = TopKPromblem.QuickSortSolution(a,5);
+        ArrayList<Integer> list = TopKProblem.QuickSortSolution(a,5);
         System.out.print("quick sort solution:");
         for(Integer i:list){
             System.out.print(i+" ");

@@ -256,8 +256,8 @@ public class ExecutorsExample {
         for (Callable c:callableTasks){
             executorCompletionService.submit(c);
         }
+
         /**
-         *
          * 获取多个返回结果，ExecutorCompletionService，该类的take()方法总是阻塞等待某一个任务完成，
          * 然后返回该任务的Future对象。向CompletionService批量提交任务后，只需调用相同次数的CompletionService.take()方法，
          * 就能获取所有任务的执行结果，获取顺序是任意的，取决于任务的完成顺序
@@ -274,21 +274,18 @@ public class ExecutorsExample {
         }
 
         /**
-         *
          * 单个任务的超时时间
          * V Future.get(long timeout, TimeUnit unit)方法可以指定等待的超时时间，超时未完成会抛出TimeoutException
          */
-        Future future = executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("线程开始睡眠...");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        Future future = executorService.submit(() -> {
+            System.out.println("线程开始睡眠...");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
+
         try {
             Object result = future.get(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -306,17 +303,14 @@ public class ExecutorsExample {
          */
         CountDownLatch latch = new CountDownLatch(10);
         for (int i=0; i<10; i++) {
-            executorService.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        System.out.println("多任务线程正在执行");
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }finally {
-                        latch.countDown();
-                    }
+            executorService.submit(() -> {
+                try {
+                    System.out.println("多任务线程正在执行");
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    latch.countDown();
                 }
             });
         }

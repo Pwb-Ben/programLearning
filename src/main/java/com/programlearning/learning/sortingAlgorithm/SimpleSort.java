@@ -1,22 +1,18 @@
 package com.programlearning.learning.sortingAlgorithm;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 public class SimpleSort {
 
     /**
      * 冒泡排序
      * 稳定排序算法
      */
-    static void bubbleSort(int[] a,int low,int high){
+    static void bubbleSort(int[] a,int low,int high) {
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
             return;
         }
-        for(int i=low,count=0;i<high;i++,count++){
+        for(int i=low,count=0;i<high;i++,count++) {
             int temp = 0;
-            for(int j=low;j<high-count;j++){
+            for(int j=low;j<high-count;j++) {
                 if(a[j]>a[j+1]){
                     temp = a[j];
                     a[j]= a[j+1];
@@ -48,13 +44,13 @@ public class SimpleSort {
         }
     }
 
-    static void insertionSort(int[] a){
-        if (a == null || a.length == 0){
+    static void insertionSort(int[] a) {
+        if (a == null || a.length == 0) {
             return;
         }
-        for (int i = 1; i < a.length; i++){
+        for (int i = 1; i < a.length; i++) {
             int j, ai = a[i];
-            for (j = i; j > 0 && a[j-1] > ai; j--){
+            for (j = i; j > 0 && a[j-1] > ai; j--) {
                 a[j] = a[j-1];
             }
             a[j] = ai;
@@ -65,7 +61,7 @@ public class SimpleSort {
      * 选择排序
      * 不是稳定排序算法
      */
-    static void selectionSort(int[] a, int low, int high){
+    static void selectionSort(int[] a, int low, int high) {
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
             return;
         }
@@ -91,7 +87,7 @@ public class SimpleSort {
         int[] a={20,40,32,67,33,1,40,20,89,300,400,15,15,2,1,20,89,400};
 //        SimpleSort.insertionSort(a,0,a.length);
         SimpleSort.insertionSort(a,2,5);
-        for(int i:a){
+        for(int i:a) {
             System.out.print(i+" ");
         }
     }

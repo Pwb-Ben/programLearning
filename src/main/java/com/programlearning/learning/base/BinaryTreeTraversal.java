@@ -21,9 +21,7 @@ public class BinaryTreeTraversal {
 
     // 前序遍历 递归
     public static void preorderTraversalByRecursion(TreeNode treeNode){
-        if (treeNode==null) {
-            return;
-        }else {
+        if (treeNode!=null) {
             System.out.println(treeNode.value);
             preorderTraversalByRecursion(treeNode.left);
             preorderTraversalByRecursion(treeNode.right);
@@ -32,9 +30,7 @@ public class BinaryTreeTraversal {
 
     // 前序遍历 非递归借助栈
     public static void preorderTraversalByStack(TreeNode treeNode){
-        if (treeNode==null) {
-            return;
-        }else{
+        if (treeNode!=null) {
             Stack<TreeNode> stack = new Stack<>();
             while (treeNode!=null || !stack.isEmpty()){
                 while (treeNode!=null){
@@ -52,9 +48,7 @@ public class BinaryTreeTraversal {
 
     // 中序遍历 递归
     public static void inorderTraversalByRecursion(TreeNode treeNode){
-        if (treeNode==null){
-            return;
-        }else{
+        if (treeNode!=null){
             inorderTraversalByRecursion(treeNode.left);
             System.out.println(treeNode.value);
             inorderTraversalByRecursion(treeNode.right);
@@ -63,9 +57,7 @@ public class BinaryTreeTraversal {
 
     // 中序遍历 非递归
     public static void inorderTraversalByStack(TreeNode treeNode){
-        if (treeNode==null){
-            return;
-        }else{
+        if (treeNode!=null){
             Stack<TreeNode> stack = new Stack<>();
             while (treeNode!=null || !stack.isEmpty()){
                 while (treeNode!=null){
@@ -83,9 +75,7 @@ public class BinaryTreeTraversal {
 
     // 后序遍历 递归
     public static void postorderTraversalByRecursion(TreeNode treeNode){
-        if (treeNode==null){
-            return;
-        }else {
+        if (treeNode!=null){
             postorderTraversalByRecursion(treeNode.left);
             postorderTraversalByRecursion(treeNode.right);
             System.out.println(treeNode.value);
@@ -96,9 +86,7 @@ public class BinaryTreeTraversal {
     // 后序遍历递归定义：先左子树，后右子树，再根节点。
     // 后序遍历的难点在于：需要判断上次访问的节点是位于左子树，还是右子树。
     public static void postorderTraversalByStack(TreeNode treeNode){
-        if (treeNode==null){
-            return;
-        }else {
+        if (treeNode!=null){
             Stack<TreeNode> stack = new Stack<>();
             // 用来记录当前访问结点
             TreeNode cur = treeNode;
@@ -135,9 +123,7 @@ public class BinaryTreeTraversal {
 
     // 层次遍历 队列实现
     public static void levelTraversalByQueue(TreeNode treeNode){
-        if (treeNode == null){
-            return;
-        }else {
+        if (treeNode != null) {
             Queue<TreeNode> queue = new LinkedList<>();
             queue.add(treeNode);
             while (!queue.isEmpty()) {

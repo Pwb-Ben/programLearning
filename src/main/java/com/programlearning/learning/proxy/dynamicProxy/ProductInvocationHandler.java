@@ -49,9 +49,6 @@ public class ProductInvocationHandler implements InvocationHandler {
      */
     @SuppressWarnings("unchecked")
     <T> T getProxy(Class interfaces) {
-        return (T)Proxy.newProxyInstance(
-                interfaces.getClassLoader(),
-                new Class[]{interfaces},
-                this);
+        return (T)Proxy.newProxyInstance(interfaces.getClassLoader(), new Class[]{interfaces}, this);
     }
 }

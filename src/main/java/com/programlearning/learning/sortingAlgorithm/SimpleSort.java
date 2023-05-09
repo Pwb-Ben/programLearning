@@ -10,9 +10,9 @@ public class SimpleSort {
         if (null == a || low < 0 || a.length == 0 || a.length < high) {
             return;
         }
-        for(int i=low,count=0;i<high;i++,count++) {
+        for(int i=low,count=0; i<high; i++,count++) {
             int temp = 0;
-            for(int j=low;j<high-count;j++) {
+            for(int j=low; j<high-count; j++) {
                 if(a[j]>a[j+1]){
                     temp = a[j];
                     a[j]= a[j+1];
@@ -35,7 +35,7 @@ public class SimpleSort {
         }
         for (int i = low; i <= high; i++) {
             //选择第i+1个数插入到前i个数中
-            int j, ai = a[i + 1];
+            int j, ai = a[i];
             //如果比第i+1个数大则后退一位
             for(j = i; j > low && a[j-1] > ai; j--) {
                 a[j] = a[j-1];
@@ -84,10 +84,15 @@ public class SimpleSort {
     }
 
     public static void main(String[] args) {
-        int[] a={20,40,32,67,33,1,40,20,89,300,400,15,15,2,1,20,89,400};
-//        SimpleSort.insertionSort(a,0,a.length);
-        SimpleSort.insertionSort(a,2,5);
-        for(int i:a) {
+        int[] a = {20,40,32,67,33,1,40,20,89,300,400,15,15,2,1,20,89,400};
+        SimpleSort.bubbleSort(a, 0, a.length-1);
+        for(int i : a) {
+            System.out.print(i+" ");
+        }
+        System.out.println();
+        int[] b = {20,40,32,67,33,1,40,20,89,300,400,15,15,2,1,20,89,400};
+        SimpleSort.insertionSort(b);
+        for(int i : b) {
             System.out.print(i+" ");
         }
     }

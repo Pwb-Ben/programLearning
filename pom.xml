@@ -107,6 +107,13 @@
             <version>0.7.4</version>
         </dependency>
 
+        <!--Netty通讯框架-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.6.Final</version>
+        </dependency>
+
         <!--HuTool工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>

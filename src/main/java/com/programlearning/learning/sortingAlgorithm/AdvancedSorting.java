@@ -1,8 +1,5 @@
 package com.programlearning.learning.sortingAlgorithm;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Administrator
  */
@@ -34,27 +31,33 @@ public class AdvancedSorting {
      * 普通快速排序因为以第一个元素当作枢纽元，可能在排序中放到数组后面，就已经破坏其稳定性
      */
     private static void quickSort(int[] a, int low, int high){
-        if (null == a || low < 0 || a.length == 0 || a.length < high) {
+        if (low >= high) {
             return;
         }
-        int start = low, end = high, pivot;
-        if(start < end) {
-            //设置枢轴
-            pivot=a[start];
-            while(start < end) {
-                while(start<end && a[end]>=pivot) {
-                    --end;
-                }
-                a[start]=a[end];
-                while(start<end && a[start]<pivot) {
-                    ++start;
-                }
-                a[end]=a[start];
+        int key = partSort(a, low, high);
+        quickSort(a, low, key-1);
+        quickSort(a, key+1, high);
+    }
+    private static int partSort(int[] a, int left, int right) {
+        //取最左边的元素做支点
+        int key = left;
+        //当左右没有相遇
+        while (left < right){
+            //如果右比key小就退出循环
+            while (left < right && a[right] >= a[key]) {
+                right--;
             }
-            a[start]=pivot;
-            quickSort(a,low,start-1);
-            quickSort(a,start+1,high);
+            //如果左比key大就退出循环
+            while (left < right && a[left] <= a[key]) {
+                left++;
+            }
+            //交换左右
+            swap(a, left, right);
         }
+        //交换key和相遇位置的元素
+        swap(a, key, left);
+        //返回key的位置
+        return left;
     }
 
     /**
@@ -105,33 +108,32 @@ public class AdvancedSorting {
         mergeSort(a, mid + 1, high);
         merge(a, low, mid, high);
     }
-
-    private static void merge(int[] arr, int low, int mid, int high) {
+    private static void merge(int[] a, int low, int mid, int high) {
         int[] temp = new int[high - low + 1];
         int i = 0;
         int p1 = low;
         int p2 = mid + 1;
         // 比较左右两部分的元素，哪个小，把那个元素填入temp中
         while(p1 <= mid && p2 <= high) {
-            temp[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
+            temp[i++] = a[p1] <= a[p2] ? a[p1++] : a[p2++];
         }
         // 上面的循环退出后，把剩余的元素依次填入到temp中
         // 以下两个while只有一个会执行
         while(p1 <= mid) {
-            temp[i++] = arr[p1++];
+            temp[i++] = a[p1++];
         }
         while(p2 <= high) {
-            temp[i++] = arr[p2++];
+            temp[i++] = a[p2++];
         }
         // 把最终的排序的结果复制给原数组
         for(i = 0; i < temp.length; i++) {
-            arr[low + i] = temp[i];
+            a[low + i] = temp[i];
         }
     }
 
     /**
      * 堆排序
-     * https://mp.weixin.qq.com/s/g6OA6353_lonsdE7eOMANQ
+     * <a href="https://mp.weixin.qq.com/s/g6OA6353_lonsdE7eOMANQ">...</a>
      */
     private static void heapSort(int[] nums) {
         int len = nums.length;
@@ -139,7 +141,7 @@ public class AdvancedSorting {
 
         // 建堆，通过下沉操作建堆效率更高，具体过程是，找到最后一个非叶子节点，然后从后往前遍历执行下沉操作
         // 为了更直观的描述，空出数组的第一位，这样我们就可以通过 i * 2 和 i * 2 + 1 来求得左孩子节点和右孩子节点
-        System.arraycopy(nums, 0, a, 1, nums.length);
+        System.arraycopy(nums, 0, a, 1, len);
 
         // 下沉建堆
         for (int i = len >> 1; i >= 1; i--) {
@@ -170,7 +172,7 @@ public class AdvancedSorting {
             k = j;
         }
     }
-    private static void swap(int nums[], int i, int j) {
+    private static void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
@@ -178,7 +180,7 @@ public class AdvancedSorting {
 
     public static void main(String[] args) {
         int[] a={20,40,32,67,33,1,40,20,89,300,400,15,15,2,400,20,89,1};
-        AdvancedSorting.shellSort(a,2,6);
+        AdvancedSorting.mergeSort(a,0,a.length-1);
         for(int i:a){
             System.out.print(i+" ");
         }

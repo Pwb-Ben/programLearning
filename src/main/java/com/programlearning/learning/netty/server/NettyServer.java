@@ -20,24 +20,26 @@ public class NettyServer {
         NioEventLoopGroup boosGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
+        ChannelInitializer<NioSocketChannel> channelInitializer = new ChannelInitializer<NioSocketChannel>() {
+            protected void initChannel(NioSocketChannel ch) {
+                // 空闲检测
+                ch.pipeline().addLast(new IMIdleStateHandler());
+                ch.pipeline().addLast(new Spliter());
+                ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
+                ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
+                ch.pipeline().addLast(AuthHandler.INSTANCE);
+                ch.pipeline().addLast(IMHandler.INSTANCE);
+            }
+        };
+
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(boosGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.TCP_NODELAY, true)
-                .childHandler(new ChannelInitializer<NioSocketChannel>() {
-                    protected void initChannel(NioSocketChannel ch) {
-                        // 空闲检测
-                        ch.pipeline().addLast(new IMIdleStateHandler());
-                        ch.pipeline().addLast(new Spliter());
-                        ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
-                        ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(AuthHandler.INSTANCE);
-                        ch.pipeline().addLast(IMHandler.INSTANCE);
-                    }
-                });
+                .childHandler(channelInitializer);
 
         bind(serverBootstrap, PORT);
     }

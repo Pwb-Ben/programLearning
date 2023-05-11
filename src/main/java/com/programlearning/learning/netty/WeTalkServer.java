@@ -7,14 +7,14 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
-public class weTalkServer {
+public class WeTalkServer {
     private static final String EXIT_MARK = "exit";
 
     private static final int BUFFER_SIZE = 128;
 
     private int port;
 
-    weTalkServer(int port) {
+    WeTalkServer(int port) {
         this.port = port;
     }
 
@@ -69,6 +69,6 @@ public class weTalkServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new weTalkServer(8080).start();
+        new WeTalkServer(8080).start();
     }
 }

@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
-public class weTalkClient {
+public class WeTalkClient {
     private static final String EXIT_MARK = "exit";
 
     private static final int BUFFER_SIZE = 128;
@@ -15,7 +15,7 @@ public class weTalkClient {
 
     private int port;
 
-    weTalkClient(String hostname, int port) {
+    WeTalkClient(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
     }
@@ -66,6 +66,6 @@ public class weTalkClient {
     }
 
     public static void main(String[] args) throws IOException {
-        new weTalkClient("localhost", 8080).start();
+        new WeTalkClient("localhost", 8080).start();
     }
 }

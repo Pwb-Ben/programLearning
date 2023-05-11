@@ -10,7 +10,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class weTalkNIOServer {
+public class WeTalkNIOServer {
 
     //private static final String EXIT_MARK = "exit";
 
@@ -18,7 +18,7 @@ public class weTalkNIOServer {
 
     private int port;
 
-    weTalkNIOServer(int port) {
+    WeTalkNIOServer(int port) {
         this.port = port;
     }
 
@@ -99,6 +99,6 @@ public class weTalkNIOServer {
     }
 
     public static void main(String[] args) throws IOException{
-        new weTalkNIOServer(8080).start();
+        new WeTalkNIOServer(8080).start();
     }
 }

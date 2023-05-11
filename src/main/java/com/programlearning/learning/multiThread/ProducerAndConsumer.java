@@ -15,10 +15,10 @@ public class ProducerAndConsumer{
     }
 
     /**
-     * 1、永远在synchronized的函数或对象里使用wait、notify和notifyAll，不然Java虚拟机会生成IllegalMonitorStateException。
+     * 1、永远在synchronized的函数或代码块里使用wait、notify和notifyAll，不然Java虚拟机会生成IllegalMonitorStateException。
      * 2、永远在while循环里而不是if语句下使用wait。这样，循环会在线程睡眠前后都检查wait的条件，并在条件实际上并未改变的情况下处理唤醒通知。
      * 3、永远在多线程间共享的对象上使用wait。
-     * 4、notify随机通知一个阻塞在对象上的线程；notifyAll通知阻塞在对象上所有的线程。
+     * 4、notify随机通知一个阻塞在对象上的线程，notifyAll通知阻塞在对象上所有的线程。
      */
     static class Producer implements Runnable{
 
@@ -135,8 +135,8 @@ public class ProducerAndConsumer{
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         AwaitSignalExample example = new AwaitSignalExample();
-        executorService.execute(() -> example.after());
-        executorService.execute(() -> example.before());
+        executorService.execute(example::after);
+        executorService.execute(example::before);
         executorService.shutdown();
     }
 }

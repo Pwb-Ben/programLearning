@@ -25,7 +25,7 @@ import java.util.concurrent.*;
  */
 public class ExecutorsExample {
 
-    private static ExecutorService executorService;
+    private static volatile ExecutorService executorService;
 
     private CountDownLatch countDownLatch;
 
@@ -113,7 +113,7 @@ public class ExecutorsExample {
      * @param queue
      * @param policy
      */
-    ExecutorsExample(int poolSize, int maxPoolSize, long keepAliveTime, TimeUnit unit, BlockingDeque queue, RejectedExecutionHandler policy){
+    ExecutorsExample(int poolSize, int maxPoolSize, long keepAliveTime, TimeUnit unit, BlockingDeque<?> queue, RejectedExecutionHandler policy){
         this.poolSize = poolSize;
         this.maxPoolSize = maxPoolSize;
         this.keepAliveTime = keepAliveTime;
@@ -133,7 +133,7 @@ public class ExecutorsExample {
      * @param policy
      * @param threadFactory
      */
-    ExecutorsExample(int poolSize, int maxPoolSize, long keepAliveTime, TimeUnit unit, BlockingDeque queue, RejectedExecutionHandler policy, ThreadFactory threadFactory){
+    ExecutorsExample(int poolSize, int maxPoolSize, long keepAliveTime, TimeUnit unit, BlockingDeque<?> queue, RejectedExecutionHandler policy, ThreadFactory threadFactory){
         this.poolSize = poolSize;
         this.maxPoolSize = maxPoolSize;
         this.keepAliveTime = keepAliveTime;
@@ -206,18 +206,11 @@ public class ExecutorsExample {
         ExecutorService executorService = executorsExample.getExecutorService();
 
         ArrayList<Runnable> runnableTasks = new ArrayList<>();
-        ArrayList<Callable> callableTasks = new ArrayList<>();
+        ArrayList<Callable<Object>> callableTasks = new ArrayList<>();
 
         for(int i = 0; i<10; i++) {
-            runnableTasks.add(() -> {
-                System.out.println("runnableTask is running...");
-            });
-            callableTasks.add(new Callable<Object>() {
-                @Override
-                public Object call() throws Exception {
-                    return "callableTask finish!";
-                }
-            });
+            runnableTasks.add(() -> System.out.println("runnableTask is running..."));
+            callableTasks.add(() -> "callableTask finish!");
         }
 
         // void execute(Runnable command) 不关心返回结果
@@ -226,14 +219,12 @@ public class ExecutorsExample {
         }
 
         // Future<T> submit(Callable<T> task) 有返回结果
-        for(Callable c:callableTasks) {
-            Future future = executorService.submit(c);
+        for(Callable<Object> c:callableTasks) {
+            Future<Object> future = executorService.submit(c);
             try {
                 Object result = future.get();
                 System.out.println(result);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
@@ -244,16 +235,14 @@ public class ExecutorsExample {
             try {
                 Object result = future.get();
                 System.out.println(result==null?"result is null":"result is not null");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
 
         // 构造器
-        CompletionService<Object> executorCompletionService = new ExecutorCompletionService<Object>(executorService);
-        for (Callable c:callableTasks){
+        CompletionService<Object> executorCompletionService = new ExecutorCompletionService<>(executorService);
+        for (Callable<Object> c:callableTasks){
             executorCompletionService.submit(c);
         }
 
@@ -266,9 +255,7 @@ public class ExecutorsExample {
             try {
                 Object result = executorCompletionService.take().get();
                 System.out.println("第"+(i+1)+"个任务完成，结果"+result);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
@@ -277,20 +264,19 @@ public class ExecutorsExample {
          * 单个任务的超时时间
          * V Future.get(long timeout, TimeUnit unit)方法可以指定等待的超时时间，超时未完成会抛出TimeoutException
          */
-        Future future = executorService.submit(() -> {
+        Future<Object> future = executorService.submit(() -> {
             System.out.println("线程开始睡眠...");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            return null;
         });
 
         try {
             Object result = future.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
             System.out.println("线程耗时过长，结果返回失败");

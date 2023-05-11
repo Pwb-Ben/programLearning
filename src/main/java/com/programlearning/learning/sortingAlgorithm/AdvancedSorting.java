@@ -157,7 +157,7 @@ public class AdvancedSorting {
 
         System.arraycopy(a, 1, nums, 0, len);
     }
-    private static void sink(int[] nums, int k,int end) {
+    private static void sink(int[] nums, int k, int end) {
         //下沉
         while (k << 2 <= end) {
             int j = k << 2;

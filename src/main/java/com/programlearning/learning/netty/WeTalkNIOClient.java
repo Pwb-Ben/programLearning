@@ -9,7 +9,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class weTalkNIOClient {
+public class WeTalkNIOClient {
 
     //private static final String EXIT_MARK = "exit";
 
@@ -19,7 +19,7 @@ public class weTalkNIOClient {
 
     private int port;
 
-    weTalkNIOClient(String hostname, int port) {
+    WeTalkNIOClient(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
     }
@@ -51,7 +51,7 @@ public class weTalkNIOClient {
             sc.close();
         }).start();
 
-        // 5. 轮训地获取选择器上已“就绪”的事件--->只要select()>0，说明已就绪
+        // 5. 轮询地获取选择器上已“就绪”的事件--->只要select()>0，说明已就绪
         while (selector.select() > 0) {
             // 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)
             Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
@@ -90,6 +90,6 @@ public class weTalkNIOClient {
     }
 
     public static void main(String[] args) throws IOException {
-        new weTalkNIOClient("localhost", 8080).start();
+        new WeTalkNIOClient("localhost", 8080).start();
     }
 }

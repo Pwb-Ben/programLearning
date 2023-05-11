@@ -24,7 +24,7 @@ public class ThreadSynchronization {
      * 如果李四抢的好.当然就是李四继续上. 张三抢的好就是张三的. 这个示例里面没有耗时操作. 所以看不出什么区别。
      *
      */
-     class YieldTest extends Thread {
+    static class YieldTest extends Thread {
 
         public YieldTest(String name) {
             super(name);
@@ -36,7 +36,7 @@ public class ThreadSynchronization {
                 System.out.println("" + this.getName() + "-----" + i);
                 // 当i为30时，该线程就会把CPU时间让掉，让其他或者自己的线程执行（也就是谁先抢到谁执行）
                 if (i == 30) {
-                    this.yield();
+                    Thread.yield();
                 }
             }
         }
@@ -68,7 +68,7 @@ public class ThreadSynchronization {
      * 种锁机制，JVM 原生地支持它，而 ReentrantLock 不是所有的 JDK 版本都支持。并且使用 synchronized 不用担心没
      * 有释放锁而导致死锁问题，因为 JVM 会确保锁的释放。
      */
-    class ReentrantLockExample {
+    static class ReentrantLockExample {
          private Lock lock = new ReentrantLock(true); //true:公平锁，false:非公平锁
 
          public void func() {
@@ -86,8 +86,8 @@ public class ThreadSynchronization {
     public void runReentrantLockExample(){
         ReentrantLockExample reentrantLockExample = new ReentrantLockExample();
         ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(() -> reentrantLockExample.func());
-        executorService.execute(() -> reentrantLockExample.func());
+        executorService.execute(reentrantLockExample::func);
+        executorService.execute(reentrantLockExample::func);
         executorService.shutdown();
     }
 

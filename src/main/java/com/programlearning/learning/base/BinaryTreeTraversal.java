@@ -13,7 +13,7 @@ import java.util.Stack;
  */
 public class BinaryTreeTraversal {
 
-    private class TreeNode{
+    private static class TreeNode{
         public TreeNode left;
         public TreeNode right;
         public String value;

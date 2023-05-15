@@ -8,8 +8,7 @@ import java.util.concurrent.locks.StampedLock;
 
 public class ThreadSynchronization {
 
-    private ThreadSynchronization() {
-    }
+    private ThreadSynchronization() {}
 
     /**
      * 运行结果：
@@ -117,7 +116,7 @@ public class ThreadSynchronization {
      *
      */
     class StampedLockExample{
-        private StampedLock stampedLock = new StampedLock();
+        private final StampedLock stampedLock = new StampedLock();
         private double x;
         private double y;
 

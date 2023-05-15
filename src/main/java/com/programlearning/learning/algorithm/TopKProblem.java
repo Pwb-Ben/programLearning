@@ -1,4 +1,4 @@
-package com.programlearning.learning.sortingAlgorithm;
+package com.programlearning.learning.algorithm;
 
 import java.util.ArrayList;
 import java.util.Collections;

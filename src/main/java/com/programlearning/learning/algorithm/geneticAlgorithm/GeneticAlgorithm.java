@@ -1,4 +1,4 @@
-package com.programlearning.learning.smartalgorithm.geneticAlgorithm;
+package com.programlearning.learning.algorithm.geneticAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;

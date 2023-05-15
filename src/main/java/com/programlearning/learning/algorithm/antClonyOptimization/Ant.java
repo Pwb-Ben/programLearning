@@ -1,4 +1,4 @@
-package com.programlearning.learning.smartalgorithm.antClonyOptimization;
+package com.programlearning.learning.algorithm.antClonyOptimization;
 
 import java.util.Random;
 import java.util.Vector;

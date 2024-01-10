@@ -1,11 +1,10 @@
 package com.programlearning.learning.spring.initializingBean;
 
 import com.programlearning.learning.spring.applicationListener.diyApplicationEvent.TestCreateEventService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.PostConstruct;
 
 /**
  * InitializingBean 是 Spring 提供的一个接口，只包含一个方法 afterPropertiesSet()。

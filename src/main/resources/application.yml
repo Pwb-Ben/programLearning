@@ -1,5 +1,26 @@
 server:
   port: 8000
+  tomcat:
+    threads:
+      # 最少线程数
+      min-spare: 10
+      # 最多线程数
+      max: 300
+    # 最大连接数
+    max-connections: 10000
+    # 最大等待数
+    accept-count: 10000
+
+spring:
+  data:
+    redis:
+      database: 0
+      host: localhost
+      port: 6379
+      password: 123456
+  threads:
+    virtual:
+      enabled: true
 
 file:
   html: classpath:/h5/

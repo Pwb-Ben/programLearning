@@ -1,148 +1,148 @@
-#Configuration:
-#  # 指定日志打印级别，日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
-#  status: ERROR
-#  name: YAMLConfigTest
-#  # 自动重新配置的监测间隔时间，单位：秒
-#  monitorInterval: 10
-#  # 公共参数配置，引入到后面配置中，以List的方式配置
-#  properties:
-#    property:
-#    # 日志文件名
-#    - name: log_name
-#      value: log
-#    # 日志路径
-#    - name: log_path
-#      value: logs
-#    # 日志格式
-#    - name: log_pattern
-#      value: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%logger{50}:%L] - %msg%n"
-#  appenders:
-#    # 日志打印到控制台
-#    Console:
-#      # Appender的名字可以随意指定
-#      name: CONSOLE
-#      target: SYSTEM_OUT
-#      # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-#      # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-#      thresholdFilter:
-#        level: debug
-#        onMatch: ACCEPT
-#        onMismatch: DENY
-#      # 输出日志格式配置
-#      PatternLayout:
-#        Pattern: ${log_pattern}
-#        charset: UTF-8
-#    # 输出到文件
-##    RollingFile:
-##      -
-##        # 日志模块名称
-##        name: RollingFileInfo
-##        # 日志文件名称
-##        fileName: ${log_path}/${log_name}-info.log
-##        # 日志历史文件名称
-##        filePattern: ${log_path}/${log_name}-info.%d{yyyy-MM-dd-HH}.log
-##        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-##        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-##        thresholdFilter:
-##          level: info
-##          onMatch: ACCEPT
-##          onMismatch: DENY
-##        # 日志格式
-##        PatternLayout:
-##          Pattern: ${log_pattern}
-##          charset: UTF-8
-##        Policies:
-##          # 每一天产生一个日志文件
-##          TimeBasedTriggeringPolicy:
-##            modulate: true
-##            interval: 1
-##          # 日志最多大能超过 500NB
-##          SizeBasedTriggeringPolicy:
-##            size: 500MB
-##        # 文件夹下指保留 10个文件
-##        DefaultRolloverStrategy:
-##          max: 10
-##      -
-##        # 日志模块名称
-##        name: RollingFileWarn
-##        # 日志文件名称
-##        fileName: ${log_path}/${log_name}-warn.log
-##        # 日志历史文件名称
-##        filePattern: ${log_path}/${log_name}-warn.%d{yyyy-MM-dd-HH}.log
-##        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-##        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-##        thresholdFilter:
-##          level: warn
-##          onMatch: ACCEPT
-##          onMismatch: DENY
-##        # 日志格式
-##        PatternLayout:
-##          Pattern: ${log_pattern}
-##          charset: UTF-8
-##        Policies:
-##          # 每一天产生一个日志文件
-##          TimeBasedTriggeringPolicy:
-##            modulate: true
-##            interval: 1
-##          # 日志最多大能超过 500NB
-##          SizeBasedTriggeringPolicy:
-##            size: 500MB
-##        # 文件夹下指保留 10个文件
-##        DefaultRolloverStrategy:
-##          max: 10
-##      -
-##        # 日志模块名称
-##        name: RollingFileError
-##        # 日志文件名称
-##        fileName: ${log_path}/${log_name}-error.log
-##        # 日志历史文件名称
-##        filePattern: ${log_path}/${log_name}-error.%d{yyyy-MM-dd-HH}.log
-##        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
-##        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
-##        thresholdFilter:
-##          level: error
-##          onMatch: ACCEPT
-##          onMismatch: DENY
-##        # 日志格式
-##        PatternLayout:
-##          Pattern: ${log_pattern}
-##          charset: UTF-8
-##        Policies:
-##          # 每一天产生一个日志文件
-##          TimeBasedTriggeringPolicy:
-##            modulate: true
-##            interval: 1
-##          # 日志最多大能超过 500NB
-##          SizeBasedTriggeringPolicy:
-##            size: 500MB
-##        # 文件夹下指保留 10个文件
-##        DefaultRolloverStrategy:
-##          max: 10
-#  Loggers:
-#    #单独设置某些包的输出级别
-#    Logger:
-#      #复数加上-（这里我设置的是包的根路径的包名）
-#      name: com.programlearning.learning.log
-#      level: ERROR
-#    Root:
-#      level: ERROR
-#      includeLocation: true
-#      AppenderRef:
-##        - ref: RollingFileInfo
-##        - ref: RollingFileWarn
-##        - ref: RollingFileError
-#        - ref: CONSOLE
-#
-#        #%d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间
-#        #%-5level : 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0
-#        #%c : logger的名称(%logger)
-#        #%t : 输出当前线程名称
-#        #%p : 日志输出格式
-#        #%m : 日志内容，即 logger.info("message")
-#        #%n : 换行符
-#        #%C : Java类名(%F)
-#        #%L : 行号
-#        #%M : 方法名
-#        #%l : 输出语句所在的行数, 包括类名、方法名、文件名、行数
-#        #hostName : 本地机器名
-#        #hostAddress : 本地ip地址
+Configuration:
+  # 指定日志打印级别，日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
+  status: ERROR
+  name: YAMLConfigTest
+  # 自动重新配置的监测间隔时间，单位：秒
+  monitorInterval: 10
+  # 公共参数配置，引入到后面配置中，以List的方式配置
+  properties:
+    property:
+    # 日志文件名
+    - name: log_name
+      value: log
+    # 日志路径
+    - name: log_path
+      value: logs
+    # 日志格式
+    - name: log_pattern
+      value: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level [%logger{50}:%L] - %msg%n"
+  appenders:
+    # 日志打印到控制台
+    Console:
+      # Appender的名字可以随意指定
+      name: CONSOLE
+      target: SYSTEM_OUT
+      # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+      # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+      thresholdFilter:
+        level: debug
+        onMatch: ACCEPT
+        onMismatch: DENY
+      # 输出日志格式配置
+      PatternLayout:
+        Pattern: ${log_pattern}
+        charset: UTF-8
+    # 输出到文件
+#    RollingFile:
+#      -
+#        # 日志模块名称
+#        name: RollingFileInfo
+#        # 日志文件名称
+#        fileName: ${log_path}/${log_name}-info.log
+#        # 日志历史文件名称
+#        filePattern: ${log_path}/${log_name}-info.%d{yyyy-MM-dd-HH}.log
+#        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+#        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+#        thresholdFilter:
+#          level: info
+#          onMatch: ACCEPT
+#          onMismatch: DENY
+#        # 日志格式
+#        PatternLayout:
+#          Pattern: ${log_pattern}
+#          charset: UTF-8
+#        Policies:
+#          # 每一天产生一个日志文件
+#          TimeBasedTriggeringPolicy:
+#            modulate: true
+#            interval: 1
+#          # 日志最多大能超过 500NB
+#          SizeBasedTriggeringPolicy:
+#            size: 500MB
+#        # 文件夹下指保留 10个文件
+#        DefaultRolloverStrategy:
+#          max: 10
+#      -
+#        # 日志模块名称
+#        name: RollingFileWarn
+#        # 日志文件名称
+#        fileName: ${log_path}/${log_name}-warn.log
+#        # 日志历史文件名称
+#        filePattern: ${log_path}/${log_name}-warn.%d{yyyy-MM-dd-HH}.log
+#        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+#        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+#        thresholdFilter:
+#          level: warn
+#          onMatch: ACCEPT
+#          onMismatch: DENY
+#        # 日志格式
+#        PatternLayout:
+#          Pattern: ${log_pattern}
+#          charset: UTF-8
+#        Policies:
+#          # 每一天产生一个日志文件
+#          TimeBasedTriggeringPolicy:
+#            modulate: true
+#            interval: 1
+#          # 日志最多大能超过 500NB
+#          SizeBasedTriggeringPolicy:
+#            size: 500MB
+#        # 文件夹下指保留 10个文件
+#        DefaultRolloverStrategy:
+#          max: 10
+#      -
+#        # 日志模块名称
+#        name: RollingFileError
+#        # 日志文件名称
+#        fileName: ${log_path}/${log_name}-error.log
+#        # 日志历史文件名称
+#        filePattern: ${log_path}/${log_name}-error.%d{yyyy-MM-dd-HH}.log
+#        # 指定日志级别 控制台只输出level及以上级别的信息，其他的直接拒绝
+#        # onMatch：和level级别匹配， onMismatch：和 level级别不匹配
+#        thresholdFilter:
+#          level: error
+#          onMatch: ACCEPT
+#          onMismatch: DENY
+#        # 日志格式
+#        PatternLayout:
+#          Pattern: ${log_pattern}
+#          charset: UTF-8
+#        Policies:
+#          # 每一天产生一个日志文件
+#          TimeBasedTriggeringPolicy:
+#            modulate: true
+#            interval: 1
+#          # 日志最多大能超过 500NB
+#          SizeBasedTriggeringPolicy:
+#            size: 500MB
+#        # 文件夹下指保留 10个文件
+#        DefaultRolloverStrategy:
+#          max: 10
+  Loggers:
+    #单独设置某些包的输出级别
+    Logger:
+      #复数加上-（这里我设置的是包的根路径的包名）
+      name: com.programlearning.learning.log
+      level: ERROR
+    Root:
+      level: ERROR
+      includeLocation: true
+      AppenderRef:
+#        - ref: RollingFileInfo
+#        - ref: RollingFileWarn
+#        - ref: RollingFileError
+        - ref: CONSOLE
+
+        #%d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间,输出到毫秒的时间
+        #%-5level : 输出日志级别，-5表示左对齐并且固定输出5个字符，如果不足在右边补0
+        #%c : logger的名称(%logger)
+        #%t : 输出当前线程名称
+        #%p : 日志输出格式
+        #%m : 日志内容，即 logger.info("message")
+        #%n : 换行符
+        #%C : Java类名(%F)
+        #%L : 行号
+        #%M : 方法名
+        #%l : 输出语句所在的行数, 包括类名、方法名、文件名、行数
+        #hostName : 本地机器名
+        #hostAddress : 本地ip地址

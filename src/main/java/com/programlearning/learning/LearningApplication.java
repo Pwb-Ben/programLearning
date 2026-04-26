@@ -6,7 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
  * 包扫描的触发时机在这里：执行 ConfigurationClassPostProcessor 的 postProcessBeanDefinitionRegistry 方法，解析 @ComponentScan 时触发。
  */
 @SpringBootApplication
+@EnableAsync
+@EnableCaching
 public class LearningApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

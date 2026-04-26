@@ -3,24 +3,61 @@ server:
   tomcat:
     threads:
       # 最少线程数
-      min-spare: 10
+      min-spare: 100
       # 最多线程数
-      max: 300
+      max: 800
     # 最大连接数
     max-connections: 10000
     # 最大等待数
-    accept-count: 10000
+    accept-count: 100
 
 spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      leak-detection-threshold: 60000
   data:
     redis:
       database: 0
       host: localhost
       port: 6379
       password: 123456
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-ddHH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
   threads:
     virtual:
       enabled: true
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 16
+        # 任务队列长度
+        queue-capacity: 100
+        keep-alive: 60s
+      thread-name-prefix: my-async-task-
+    scheduling:
+      pool:
+        size: 4
+      thread-name-prefix: my-scheduling-
+  cache:
+    type: redis
+    redis:
+      time-to-live: 15s
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      file-size-threshold: 2KB
+      location: /tmp
+      resolve-lazily: false
 
 file:
   html: classpath:/h5/
@@ -33,3 +70,11 @@ file:
 
 #logging:
 #  config: classpath:log4j2.yml
+logging:
+  file:
+    name: app.log
+  logback:
+    rolling-policy:
+      max-file-size: 100MB
+      max-history: 30
+      total-size-cap: 3GB

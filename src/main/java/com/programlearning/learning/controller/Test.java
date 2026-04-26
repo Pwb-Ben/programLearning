@@ -1,7 +1,11 @@
 package com.programlearning.learning.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,51 +22,53 @@ import java.util.regex.Pattern;
 @RestController
 public class Test {
 
+    private final TestService testService;
+
+    public Test(TestService testService) {
+        this.testService = testService;
+    }
+
     @GetMapping("/api/hello")
-    public ResponseEntity<Object> getHelloWorld(HttpServletRequest request, String param){
-        System.out.println("request------------->"+request.getQueryString());
-        System.out.println("param------------->"+param);
-        switch (param){
-            case "1":
-                return ResponseEntity.ok("hello world");
-            case "2":
-                return ResponseEntity.badRequest().body("hello world bad request");
-            default:
-                return ResponseEntity.ok("hello world");
-        }
+    public ResponseEntity<Object> getHelloWorld(HttpServletRequest request, String param) {
+        System.out.println("request------------->" + request.getQueryString());
+        Integer i = testService.sayHello();
+        System.out.println(i);
+        System.out.println("param------------->" + param);
+        return switch (param) {
+            case "1" -> ResponseEntity.ok("hello world");
+            case "2" -> ResponseEntity.badRequest().body("hello world bad request");
+            default -> ResponseEntity.ok("hello world");
+        };
     }
 
     @PostMapping("/api/hello")
-    public ResponseEntity<Object> postHelloWorld(@RequestBody TestVo data){
-        System.out.println("data------------->"+data.getParam());
-        switch (data.getParam()){
-            case "1":
-                return ResponseEntity.ok("hello world");
-            case "2":
-                return ResponseEntity.badRequest().body("hello world bad request");
-            default:
-                return ResponseEntity.ok("hello world");
-        }
+    public ResponseEntity<Object> postHelloWorld(@RequestBody TestVo data) {
+        System.out.println("data------------->" + data.getParam());
+        return switch (data.getParam()) {
+            case "1" -> ResponseEntity.ok("hello world");
+            case "2" -> ResponseEntity.badRequest().body("hello world bad request");
+            default -> ResponseEntity.ok("hello world");
+        };
     }
 
     @PostMapping("/api/auth/login")
-    public ResponseEntity<Object> login(){
+    public ResponseEntity<Object> login() {
         Map<String, String> map = new HashMap<>();
-        map.put("token","Bearer 123456");
+        map.put("token", "Bearer 123456");
         return ResponseEntity.ok(map);
     }
 
     @PostMapping("/api/auth/logout")
-    public ResponseEntity<Object> logout(){
+    public ResponseEntity<Object> logout() {
         return ResponseEntity.ok("logout success");
     }
 
     @GetMapping("/api/auth/user")
-    public ResponseEntity<Object> user(){
+    public ResponseEntity<Object> user() {
         Map<String, Map<String, String>> map = new HashMap<>(1);
         Map<String, String> map2 = new HashMap<>(2);
-        map2.put("name","Ben");
-        map2.put("sex","man");
+        map2.put("name", "Ben");
+        map2.put("sex", "man");
         map.put("user", map2);
         ResponseEntity.badRequest();
         return ResponseEntity.ok(map);
@@ -106,6 +112,7 @@ public class Test {
     }
 
     private static Pattern pattern = Pattern.compile("(\\d+ms)(\\s+)(TTL=\\d+)", Pattern.CASE_INSENSITIVE);
+
     //若line含有=18ms TTL=16字样,说明已经ping通,返回1,否則返回0.
     private static int getCheckResult(String line) {
         // System.out.println("控制台输出的结果为:"+line);
